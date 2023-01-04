@@ -27,6 +27,7 @@ import Signup from './UAMContainer/Signup';
 
 import { useComponentDidMount } from 'src/hooks';
 import Welcome from './UAMContainer/Welcome';
+import Footer from 'src/components/Footer';
 
 const Routing: React.FC<{ location: Location }> = (props) => {
   Navigator.setTopHistory(useHistory());
@@ -59,6 +60,8 @@ const Routing: React.FC<{ location: Location }> = (props) => {
       <ToastContainer />
       <ResponsiveContainer />
       <UploadProgressContainer />
+
+      <Footer />
     </Screen>
   );
 };

@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: row;
   border: $default-border;
-  border-radius: $input-boder-radius;
+  border-radius: $input-border-radius;
   height: $input-normal;
   width: 100%;
 
@@ -23,7 +23,7 @@
     transition: $default-transition;
     font-size: $body-size;
     border: none !important;
-    border-radius: $input-boder-radius;
+    border-radius: $input-border-radius;
     width: 100%;
     height: 38px !important;
   }

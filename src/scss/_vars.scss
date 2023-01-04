@@ -1,23 +1,23 @@
 :root {
-  --primary: #0361d0;
-  --secondary: #0361d0;
-  --danger: #e00016;
-  --success: #10892a;
+  --primary: #2f302f;
+  --secondary: #0088cc;
+  --danger: #db0012;
+  --success: #2d934e;
   --white: #ffffff;
   --black: #000000;
   --light-black: #656263;
   --background: #f7f8fa;
   --gray: #8d8d8d;
   --gray-light: #9f9f9f;
-  --link: #1562f8;
+  --link: #0088cc;
   --link-dark: #2a5cb1;
 }
 
 $primary: #0361d0;
-$link: #1562f8;
-$success: #10892a;
-$warning: #f4762f;
-$danger: #e00016;
+$link: #0088cc;
+$success: #2d934e;
+$warning: #e87839;
+$danger: #db0012;
 $danger-light: #f5d5cd;
 
 // Basic Colors
@@ -28,24 +28,24 @@ $color-green: #1da832;
 $color-red: #fc0000;
 $color-warning: #ca9d00;
 
-$color-black-500: #231f20;
+$color-black-500: #2f302f;
 $color-black-400: #444141;
 $color-black-300: #656263;
 $color-black-200: #918f90;
 $color-black-100: #bdbcbc;
 $color-black-50: #e5e4e4;
 
-$color-primary-900: #001b63;
-$color-primary-800: #002778;
-$color-primary-700: #013795;
-$color-primary-600: #024bb2;
-$color-primary-500: #0361d0;
-$color-primary-400: #3b8fe2;
-$color-primary-300: #62b0f0;
-$color-primary-200: #97d2fa;
-$color-primary-100: #caeafc;
+$color-primary-900: #09170d;
+$color-primary-800: #0e1b12;
+$color-primary-700: #172219;
+$color-primary-600: #222922;
+$color-primary-500: #2f302f;
+$color-primary-400: #808280;
+$color-primary-300: #bec0be;
+$color-primary-200: #e8eae8;
+$color-primary-100: #f3f4f3;
 
-$color-grey-900: #1b1c1e;
+$color-grey-900: #333333;
 $color-grey-800: #2d2f31;
 $color-grey-700: #484c4f;
 $color-grey-600: #6d7176;
@@ -69,14 +69,14 @@ $color-text-inactive: var(--gray-light);
 $color-tab-panel: var(--light-black);
 
 $color-header: $color-black-500;
-$color-border: #e5e4e4;
+$color-border: #91979e;
 $color-placeholder: #9e9e9e;
 
 $color-primary: var(--primary);
 $color-primary-background: var(--background);
 $color-secondary: var(--secondary);
 
-$color-info: #1a74dc;
+$color-info: #0088cc;
 $color-info-bg: #e1f6fd;
 $color-success: var(--success);
 $color-success-bg: #fee0e0;
@@ -114,7 +114,7 @@ $input-normal: 40px;
 $input-medium: 48px;
 
 $input-padding: 0 12px;
-$input-boder-radius: 8px;
+$input-border-radius: 4px;
 
 // border
 $default-border: 1px solid $color-border;
@@ -124,7 +124,7 @@ $default-transition: all 0.2s ease-in-out;
 $default-transition-med: all 0.4s ease-in-out;
 $default-linear-trans: all 0.2s linear;
 $default-linear-trans-med: all 0.4s linear;
-$default-border-radius: 8px;
+$default-border-radius: 4px;
 
 $navbar-height: 4rem;
 $footer-height: $navbar-height;
@@ -133,10 +133,10 @@ $sidebar-width: 288px;
 $sidebar-mini-width: 80px;
 
 // reponsive checkpoint
-$widescreen: 1408px;
-$desktop: 1215px;
-$tablet: 1023px;
-$mobile: 768px;
+$widescreen: 1440px;
+$desktop: 1280px;
+$tablet: 960px;
+$mobile: 600px;
 
 $secondary-container-width: 1100px;
 $form-width-medium: 944px;

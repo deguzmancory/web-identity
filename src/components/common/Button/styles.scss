@@ -3,7 +3,7 @@
 
 .cmp-button {
   height: $button-normal;
-  border-radius: 8px;
+  border-radius: $default-border-radius;
   background-color: $color-primary;
   color: $color-white;
   border: none;
@@ -11,7 +11,7 @@
   min-width: 92px;
 
   font-size: 16px;
-  font-weight: $font-weight-medium;
+  font-weight: bold;
 
   display: inline-flex;
   justify-content: center;

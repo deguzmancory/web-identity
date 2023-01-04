@@ -1,15 +1,5 @@
 import { Accept } from 'react-dropzone';
 
-export const MFA_TYPE = {
-  NOMFA: 'NOMFA',
-  TOTP: 'TOTP',
-  SMS: 'SMS',
-};
-
-export const DEBOUNCE_NORMAL = 400;
-export const US_ID = 233;
-export const USER_ROLE = 'USER';
-
 export const ONE_HOUR = 60 * 60 * 1000;
 
 export const COMMON_TYPE: Accept = {
@@ -28,20 +18,28 @@ export const muiResponsive = {
 };
 
 export const COLOR_CODE = {
-  PRIMARY: '#0361D0',
-  SECONDARY: '#0060a8',
-  SUCCESS: '#219653',
-  WARNING: '#ca9d00',
-  DANGER: '#e00016',
+  PRIMARY: '#2F302F',
+  PRIMARY_DARK: '#09170d', // primary 900
+  PRIMARY_LIGHT: '#bec0be', // primary 300
+  SECONDARY: '#0088CC',
+  SUCCESS: '#2D934E',
+  WARNING: '#E87839',
+  DANGER: '#DB0012',
   WHITE: '#fff',
   BACKGROUND: '#f7f8fa',
-  INFO: '#428BE1',
+  INFO: '#0088CC',
   DISABLED: '#91979E',
-  GRAY_900: '#1B1C1E',
-  GRAY_500: '#91979E',
-  GRAY_400: '#B5BDC5',
-  GRAY_600: '#6D7176 ',
-  GRAY_200: '#DEE1E5',
+  GREY_900: '#333333',
+  GREY_800: '#2d2f31',
+  GREY_700: '#484c4f',
+  GREY_600: '#6d7176',
+  GREY_500: '#91979e',
+  GREY_400: '#b5bdc5',
+  GREY_300: '#cfd4d9',
+  GREY_200: '#dee1e5',
+  GREY_100: '#edeff1',
+  GREY_50: '#f8f8f9',
+  GREY_00: '#ffffff',
 };
 
 export enum BOOLEAN {

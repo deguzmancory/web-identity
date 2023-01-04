@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
-import { FiHome, FiPrinter, FiUser } from 'react-icons/fi';
-// import { Icon } from 'src/components/common';
+import { FiHome, FiUser } from 'react-icons/fi';
 import { Permission } from 'src/redux/auth/types';
 import appConfig from '.';
 import { PATHS } from './paths';
@@ -27,13 +26,6 @@ export const SidebarMenu: MenuType[] = [
     title: 'User Management',
     icon: <FiUser className="has-text-black" />,
     href: `${PATHS.myProfile}`,
-    permissions: appConfig.DASHBOARD_PERMISSION,
-  },
-
-  {
-    title: 'Property Management',
-    icon: <FiPrinter className="has-text-black" />,
-    href: PATHS.property,
     permissions: appConfig.DASHBOARD_PERMISSION,
   },
 ];

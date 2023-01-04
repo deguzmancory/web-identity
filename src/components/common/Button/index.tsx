@@ -50,7 +50,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
       {...props}
     >
       {isRenderIcon ? icon : null}
-      <Loading size="small" loadingStyle={5} className="cmp-button__loading" />
+      {isLoading && <Loading size="small" loadingStyle={5} className="cmp-button__loading" />}
       <span className="cmp-button__label">{label || children}</span>
     </button>
   );

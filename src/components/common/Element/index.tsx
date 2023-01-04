@@ -7,7 +7,7 @@ import View from '../View';
 import './styles.scss';
 import { isEmpty } from 'src/validations';
 import { ViewProps } from 'src/components/common/View';
-import { Tooltip } from '@mui/material';
+import { Tooltip, Typography } from '@mui/material';
 import { COLOR_CODE } from 'src/appConfig/constants';
 import { IoInformationCircle } from 'react-icons/io5';
 
@@ -31,16 +31,8 @@ const Element: React.FC<Props> = ({
   return (
     <View className={cn(className, 'form-element')} {...props}>
       {hasLabel && (
-        <label
-          htmlFor={id}
-          style={{
-            display: 'flex',
-            flexFlow: 'row',
-            alignItems: 'center',
-            height: 24,
-          }}
-        >
-          {label} {required && <span className="has-text-danger ml-1 fw-bold text-is-16">*</span>}
+        <Typography variant="body2">
+          {label} {required && <span className="has-text-danger fw-bold text-is-16">*</span>}
           {infoTooltipMessage && (
             <span>
               <Tooltip
@@ -60,12 +52,22 @@ const Element: React.FC<Props> = ({
               </Tooltip>
             </span>
           )}
-        </label>
+        </Typography>
       )}
 
       {hasSubLabel && subLabel}
       {children}
-      {hasError && <p className="form-element__error">{errorMessage}</p>}
+      {hasError && (
+        <Typography
+          variant="subtitle1"
+          color={'error'}
+          classes={{
+            root: 'mt-1',
+          }}
+        >
+          {errorMessage}
+        </Typography>
+      )}
     </View>
   );
 };

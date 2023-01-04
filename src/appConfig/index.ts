@@ -7,6 +7,7 @@ const configs = {
   TIME_ZONE: process.env.REACT_APP_TIME_ZONE,
   APP_ENV: process.env.REACT_APP_BUILD_MODE,
   AWS_S3_WEB_LOGIN_BUCKET_URL: process.env.REACT_APP_AWS_S3_WEB_LOGIN_BUCKET_URL,
+  APP_VERSION: process.env.REACT_APP_VERSION || '0.1.0',
 };
 
 const googleServices = {
@@ -39,7 +40,7 @@ const AWS_CONFIG = {
   region: process.env.REACT_APP_AWS_IDENTITY_REGION,
   userPoolId: process.env.REACT_APP_AWS_USER_POOL_ID,
   userPoolWebClientId: process.env.REACT_APP_AWS_USER_POOL_WEB_CLIENT_ID,
-  authenticationFlowType: 'CUSTOM_AUTH',
+  authenticationFlowType: 'USER_PASSWORD_AUTH',
   oauth: {
     domain: process.env.REACT_APP_AWS_USER_POOL_DOMAIN,
     scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],

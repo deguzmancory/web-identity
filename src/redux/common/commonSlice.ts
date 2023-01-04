@@ -43,7 +43,6 @@ export const commonSlice = createSlice({
   extraReducers: {
     [setAuthenticated.type]: (state, action: PayloadAction<boolean>) => {
       state.showSidebar = action.payload;
-      state.showNavbar = action.payload;
     },
   },
 });

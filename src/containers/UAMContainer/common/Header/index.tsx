@@ -1,21 +1,13 @@
-import cn from 'classnames';
-import { Text, View } from 'src/components/common';
-import Logo from 'src/components/Logo';
+import { Stack, Typography } from '@mui/material';
 
 const Header = () => {
   return (
-    <View fullWidth justify="center" align="center" className="mb-32">
-      <View>
-        <Logo className="mb-16" />
-      </View>
-
-      <Text size={16} className={cn('text-color-grey-900')}>
+    <Stack justifyContent={'center'} alignItems="center" flexDirection={'column'} mb={4}>
+      <Typography variant="body1" mb={1}>
         The Research Corporation of the University of Hawaii
-      </Text>
-      <Text size={20} className={cn('fw-bold  text-color-grey-900')}>
-        Financial System Login
-      </Text>
-    </View>
+      </Typography>
+      <Typography variant="h2">Financial System Login</Typography>
+    </Stack>
   );
 };
 
