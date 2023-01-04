@@ -1,10 +1,9 @@
-import React from 'react';
-import { TenantService } from 'src/services';
-import AdminSignin from '../admin/Signin';
 import { History } from 'history';
+import React from 'react';
+import AdminSignin from '../admin/Signin';
 
 const SignIn: React.FC<Props> = (props) => {
-  if (TenantService.isAdmin()) return <AdminSignin {...props} />;
+  // if (TenantService.isAdmin()) return <AdminSignin {...props} />;
   return <AdminSignin {...props} />;
 };
 

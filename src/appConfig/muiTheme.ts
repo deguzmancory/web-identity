@@ -10,6 +10,9 @@ export const theme = createTheme({
       main: COLOR_CODE.PRIMARY,
     },
   },
+  typography: {
+    fontFamily: ['Arial'].join(','),
+  },
   components: {
     MuiTooltip: {
       styleOverrides: {

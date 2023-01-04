@@ -1,15 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useMediaQuery } from '@mui/material';
-import cn from 'classnames';
 import { Formik, FormikProps } from 'formik';
 import { History } from 'history';
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
-import { muiResponsive } from 'src/appConfig/constants';
-import { IMAGES } from 'src/appConfig/images';
 import { PATHS } from 'src/appConfig/paths';
-import { Button, Form, Grid, Image, Input, InputPassword, Text, View } from 'src/components/common';
-import Logo from 'src/components/Logo';
+import { Button, Form, Grid, Input, InputPassword, View } from 'src/components/common';
 import { SignInPayload, useLogin, useProfile, useResendSignUp } from 'src/queries';
 import { useUserId } from 'src/queries/UAM/useUserId';
 import { hideDialog, showDialog } from 'src/redux/dialog/dialogSlice';
@@ -17,9 +12,10 @@ import { DIALOG_TYPES } from 'src/redux/dialog/type';
 import { IRootState } from 'src/redux/rootReducer';
 import { ErrorService, Navigator, Yup } from 'src/services';
 import { Tenants } from 'src/services/tenantService';
+import { UAMBody } from '../../common';
 import EmailConfirmationModal from '../../common/EmailConfirmationModal';
 import MFAConfirmationModal from '../../common/MFAConfirmationModal';
-
+import './styles.scss';
 type FormValue = {
   email: string;
   password: string;
@@ -29,8 +25,6 @@ const INTIAL: FormValue = { email: '', password: '' };
 
 const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog }) => {
   const formRef = useRef<FormikProps<FormValue>>(null);
-
-  const isTabletScreen = useMediaQuery(muiResponsive.TABLET);
 
   const { login, isSigning } = useLogin({
     onSuccess(data, variables, context) {
@@ -135,78 +129,63 @@ const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog }) => {
   });
 
   return (
-    <View className="ctn-uam" flexGrow={1}>
-      <Image className="ctn-uam__image" src={IMAGES.backgroundLogin} />
-      <View className="ctn-uam__container--wrap" flexGrow={1}>
-        <View className="ctn-uam__container" flexGrow={1}>
-          <Logo
-            className="mb-36"
-            isColumn={isTabletScreen}
-            subTitleSize={isTabletScreen ? 14 : 16}
-          />
-          <View isRow align="center" justify="space-between" className="mb-24">
-            <Text size={40} className={cn('fw-bold  text-color-grey-900')}>
-              {'Log In'}
-            </Text>
-          </View>
-          <Formik
-            initialValues={INTIAL}
-            onSubmit={handleLogin}
-            validationSchema={SigninSchema}
-            innerRef={formRef}
-          >
-            {({ values, errors, touched, getFieldProps, handleSubmit }) => (
-              <Form onSubmit={handleSubmit} autoComplete="off" className="ctn-uam__form">
-                <Grid.Wrap>
-                  <Grid.Item variant="is-full">
-                    <Input
-                      label="Email Address"
-                      required
-                      placeholder="Email Address"
-                      errorMessage={touched.email ? errors.email : ''}
-                      {...getFieldProps('email')}
-                    />
-                  </Grid.Item>
-                  <Grid.Item variant="is-full">
-                    <InputPassword
-                      label="Password"
-                      required
-                      placeholder="Password"
-                      errorMessage={touched.password ? errors.password : ''}
-                      {...getFieldProps('password')}
-                    />
-                  </Grid.Item>
-                  <Grid.Item variant="is-full">
-                    <View flexGrow={1} align="flex-end">
-                      <Button
-                        type="button"
-                        variant="link"
-                        className="ctn-uam__link my-1 text-is-16 fit-width fw-medium"
-                        onClick={() => handleForgotPassword(values)}
-                      >
-                        Forgot Password?
-                      </Button>
-                    </View>
-                  </Grid.Item>
-                  <Grid.Item variant="is-full">
-                    <View flexGrow={1}>
-                      <Button
-                        type="submit"
-                        variant="secondary"
-                        className="my-2 fw-medium "
-                        isLoading={isSigning || loading || isGettingUserId}
-                      >
-                        Log In
-                      </Button>
-                    </View>
-                  </Grid.Item>
-                </Grid.Wrap>
-              </Form>
-            )}
-          </Formik>
-        </View>
-      </View>
-    </View>
+    <UAMBody>
+      <Formik
+        initialValues={INTIAL}
+        onSubmit={handleLogin}
+        validationSchema={SigninSchema}
+        innerRef={formRef}
+      >
+        {({ values, errors, touched, getFieldProps, handleSubmit }) => (
+          <Form onSubmit={handleSubmit} autoComplete="off" className="ctn-uam__form">
+            <Grid.Wrap>
+              <Grid.Item variant="is-full">
+                <Input
+                  label="Email Address"
+                  required
+                  placeholder="Email Address"
+                  errorMessage={touched.email ? errors.email : ''}
+                  {...getFieldProps('email')}
+                />
+              </Grid.Item>
+              <Grid.Item variant="is-full">
+                <InputPassword
+                  label="Password"
+                  required
+                  placeholder="Password"
+                  errorMessage={touched.password ? errors.password : ''}
+                  {...getFieldProps('password')}
+                />
+              </Grid.Item>
+              <Grid.Item variant="is-full">
+                <View flexGrow={1} align="flex-end">
+                  <Button
+                    type="button"
+                    variant="link"
+                    className="ctn-uam__link my-1 text-is-16 fit-width fw-medium"
+                    onClick={() => handleForgotPassword(values)}
+                  >
+                    Forgot Password?
+                  </Button>
+                </View>
+              </Grid.Item>
+              <Grid.Item variant="is-full">
+                <View flexGrow={1}>
+                  <Button
+                    type="submit"
+                    variant="secondary"
+                    className="my-2 fw-medium "
+                    isLoading={isSigning || loading || isGettingUserId}
+                  >
+                    Log In
+                  </Button>
+                </View>
+              </Grid.Item>
+            </Grid.Wrap>
+          </Form>
+        )}
+      </Formik>
+    </UAMBody>
   );
 };
 
