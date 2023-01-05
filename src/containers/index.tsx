@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect, Route, RouteProps, Switch, useHistory } from 'react-router-dom';
 
 import { PATHS } from 'src/appConfig/paths';
-import { Screen } from 'src/components/common';
+import { View } from 'src/components/common';
 import Navbar from 'src/components/Navbar';
 import { IRootState } from 'src/redux/rootReducer';
 import { Navigator, TenantService } from 'src/services';
@@ -23,11 +23,10 @@ import UploadProgressContainer from './StartupContainers/UploadProgressContainer
 import ForgotPassword from './UAMContainer/ForgotPassword';
 import ResetPassword from './UAMContainer/ResetPassword';
 import Signin from './UAMContainer/Signin';
-import Signup from './UAMContainer/Signup';
 
+import Footer from 'src/components/Footer';
 import { useComponentDidMount } from 'src/hooks';
 import Welcome from './UAMContainer/Welcome';
-import Footer from 'src/components/Footer';
 
 const Routing: React.FC<{ location: Location }> = (props) => {
   Navigator.setTopHistory(useHistory());
@@ -38,12 +37,11 @@ const Routing: React.FC<{ location: Location }> = (props) => {
   });
 
   return (
-    <Screen>
+    <View>
       <Navbar />
       <Switch location={props.location}>
         <Route path={PATHS.root} render={() => <Redirect to={PATHS.signIn} />} exact />
         <CustomRoute path={PATHS.signIn} component={Signin} />
-        <CustomRoute path={PATHS.signUp} component={Signup} />
         <CustomRoute path={PATHS.forgotPassword} component={ForgotPassword} />
         <CustomRoute path={PATHS.resetPassword} component={ResetPassword} />
         <CustomRoute path={PATHS.welcome} component={Welcome} />
@@ -62,7 +60,7 @@ const Routing: React.FC<{ location: Location }> = (props) => {
       <UploadProgressContainer />
 
       <Footer />
-    </Screen>
+    </View>
   );
 };
 

@@ -3,19 +3,17 @@ import { getStartCase } from 'src/utils';
 import navigator from './navigator';
 
 export enum Tenants {
-  CLAIMANT = 'claimant',
-  EMPLOYER = 'employer',
-  TPA = 'tpa',
   ADMIN = 'admin',
+  FIS = 'fis',
 }
 
 const TenantOptions = Object.values(Tenants).map((value) => ({
-  label: value === Tenants.TPA ? _.upperCase(value) : getStartCase(value),
-  isHideOnProduction: false, //value === Tenants.ADMIN,
+  label: value === Tenants.FIS ? _.upperCase(value) : getStartCase(value),
+  isHideOnProduction: false,
   value,
 }));
 
-const DefaultTenant = Tenants.CLAIMANT;
+const DefaultTenant = Tenants.FIS;
 
 type Tenant = {
   name: string;
@@ -47,18 +45,14 @@ const changeWebTenant = (tenant: string) => {
 };
 
 // ================== Check tenant ==================
-const isClaimant = () => _tenant?.name === Tenants.CLAIMANT;
-const isEmployer = () => _tenant?.name === Tenants.EMPLOYER;
-const isTPA = () => _tenant?.name === Tenants.TPA;
 const isAdmin = () => _tenant?.name === Tenants.ADMIN;
+const isFIS = () => _tenant?.name === Tenants.FIS;
 
 export {
   setTenant,
   getTenant,
-  isClaimant,
-  isEmployer,
-  isTPA,
   isAdmin,
+  isFIS,
   DefaultTenant,
   changeWebTenant,
   getWebTenant,
