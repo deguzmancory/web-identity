@@ -3,4 +3,4 @@
 
 bin/detect-secrets
 
-yarn lint
+yarn fix
