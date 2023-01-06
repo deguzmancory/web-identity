@@ -19,7 +19,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src/**/*.{js,jsx,ts,tsx}",
     "prepare": "husky install",
-    "fix": "yarn lint --fix"
+    "fix": "yarn lint --fix",
+    "fix-detect-secret": "chmod ug+x .husky/* && chmod ug+x bin/* && detect-secrets scan > .secrets.baseline && detect-secrets audit .secrets.baseline"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

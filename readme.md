@@ -56,3 +56,12 @@ The `<type>` and `<summary>` fields are mandatory, the `<task_name>` and `<scope
 - `ci: update buildspec -fix slack notification`
 
 Or install extension: [Commit Message Editor](https://marketplace.visualstudio.com/items?itemName=adam-bender.commit-message-editor)
+
+## How to fix secret-baseline
+
+```
+yarn fix-detect-secret
+
+```
+
+and open file .secrets.baseline, change all `\\` to `/`

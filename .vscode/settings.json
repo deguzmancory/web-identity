@@ -32,8 +32,8 @@
     "Hawai"
   ],
   "files.exclude": {
-    "bin": true,
-    "node_modules": true
+    "bin": false,
+    "node_modules": false
   },
   "files.eol": "\n",
   "editor.tabSize": 2,
