@@ -70,9 +70,9 @@ phases:
       - echo $CODEBUILD_BUILD_SUCCEEDING
       - |
         if [ "$CODEBUILD_BUILD_SUCCEEDING" = "1" ] ; then
-          curl -X POST -H 'Content-type:application/json' --data '{"type":"mrkdwn","text":"Deploy *Web Identity* to *'"$STAGE"'*. *SUCCEEDED!*"}' ;
+          curl -X POST -H 'Content-type:application/json' --data '{"type":"mrkdwn","text":"Deploy *Web Identity* to *'"$STAGE"'*. *SUCCEEDED!*"}' $SLACK_WEBHOOKS;
         fi
       - |
         if [ "$CODEBUILD_BUILD_SUCCEEDING" = "0" ] ; then
-          curl -X POST -H 'Content-type:application/json' --data '{"type":"mrkdwn","text":"Deploy *Web Identity* to *'"$STAGE"'*. *FAILED!*"}' ;
+          curl -X POST -H 'Content-type:application/json' --data '{"type":"mrkdwn","text":"Deploy *Web Identity* to *'"$STAGE"'*. *FAILED!*"}' $SLACK_WEBHOOKS;
         fi
