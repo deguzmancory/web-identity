@@ -23,7 +23,7 @@ env:
 
     REACT_APP_API_URL: $AWS_SECRET_ARN:ENV_API_URL
     REACT_APP_AWS_S3_WEB_IDENTITY_BUCKET_URL: $AWS_SECRET_ARN:ENV_WEBIDENTITY_URL
-    # SLACK_WEBHOOKS: $AWS_SECRET_ARN:SLACK_WEBHOOKS
+    SLACK_WEBHOOKS: $AWS_SECRET_ARN:SLACK_WEBHOOKS
 
   #exported-variables:
   # - variable
@@ -68,11 +68,11 @@ phases:
   post_build:
     commands:
       - echo $CODEBUILD_BUILD_SUCCEEDING
-      # - |
-      #   if [ "$CODEBUILD_BUILD_SUCCEEDING" = "1" ] ; then
-      #     curl -X POST -H 'Content-type:application/json' --data '{"type":"mrkdwn","text":"Deploy *Web Identity* to *'"$STAGE"'*. *SUCCEEDED!*"}' ;
-      #   fi
-      # - |
-      #   if [ "$CODEBUILD_BUILD_SUCCEEDING" = "0" ] ; then
-      #     curl -X POST -H 'Content-type:application/json' --data '{"type":"mrkdwn","text":"Deploy *Web Identity* to *'"$STAGE"'*. *FAILED!*"}' ;
-      #   fi
+      - |
+        if [ "$CODEBUILD_BUILD_SUCCEEDING" = "1" ] ; then
+          curl -X POST -H 'Content-type:application/json' --data '{"type":"mrkdwn","text":"Deploy *Web Identity* to *'"$STAGE"'*. *SUCCEEDED!*"}' ;
+        fi
+      - |
+        if [ "$CODEBUILD_BUILD_SUCCEEDING" = "0" ] ; then
+          curl -X POST -H 'Content-type:application/json' --data '{"type":"mrkdwn","text":"Deploy *Web Identity* to *'"$STAGE"'*. *FAILED!*"}' ;
+        fi
