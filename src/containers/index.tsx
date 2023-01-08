@@ -19,14 +19,17 @@ import ResponsiveContainer from './StartupContainers/ResponsiveContainer';
 import SplashScreen from './StartupContainers/SplashScreen';
 import ToastContainer from './StartupContainers/ToastContainer';
 import UploadProgressContainer from './StartupContainers/UploadProgressContainer';
-import ForgotPassword from './UAMContainer/ForgotPassword';
-import ResetPassword from './UAMContainer/ResetPassword';
-import Signin from './UAMContainer/Signin';
 
 import { Box } from '@mui/material';
 import Footer from 'src/components/Footer';
 import { useComponentDidMount } from 'src/hooks';
-import Welcome from './UAMContainer/Welcome';
+import ScrollToTop from './StartupContainers/ScrollToTop';
+
+const Signin = React.lazy(() => import('./UAMContainer/Signin'));
+const Signup = React.lazy(() => import('./UAMContainer/Signup'));
+const ForgotPassword = React.lazy(() => import('./UAMContainer/ForgotPassword'));
+const ResetPassword = React.lazy(() => import('./UAMContainer/ResetPassword'));
+const Welcome = React.lazy(() => import('./UAMContainer/Welcome'));
 
 const Routing: React.FC<{ location: Location }> = (props) => {
   Navigator.setTopHistory(useHistory());
@@ -42,6 +45,7 @@ const Routing: React.FC<{ location: Location }> = (props) => {
       <Switch location={props.location}>
         <Route path={PATHS.root} render={() => <Redirect to={PATHS.signIn} />} exact />
         <CustomRoute path={PATHS.signIn} component={Signin} />
+        <CustomRoute path={PATHS.signUp} component={Signup} />
         <CustomRoute path={PATHS.forgotPassword} component={ForgotPassword} />
         <CustomRoute path={PATHS.resetPassword} component={ResetPassword} />
         <CustomRoute path={PATHS.welcome} component={Welcome} />
@@ -50,7 +54,11 @@ const Routing: React.FC<{ location: Location }> = (props) => {
         <CustomRoute path={PATHS.dev} component={Dev} />
         <Route component={NotFound} />
       </Switch>
+
       <Sidebar />
+      <Footer />
+
+      <ScrollToTop />
       <AuthContainer />
       <ContentContainer />
       <LoadingContainer />
@@ -58,8 +66,6 @@ const Routing: React.FC<{ location: Location }> = (props) => {
       <ToastContainer />
       <ResponsiveContainer />
       <UploadProgressContainer />
-
-      <Footer />
     </Box>
   );
 };

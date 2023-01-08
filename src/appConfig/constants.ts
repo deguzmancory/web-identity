@@ -45,3 +45,5 @@ export enum BOOLEAN {
   true = 'true',
   false = 'false',
 }
+
+export const NO_OPENER = 'noopener noreferrer';

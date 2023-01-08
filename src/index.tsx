@@ -18,6 +18,8 @@ import { ONE_HOUR } from './appConfig/constants';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './appConfig/muiTheme';
+import { Suspense } from 'react';
+import { LoadingCommon } from './components/common';
 const { store, history } = createStore();
 
 const queryClient = new QueryClient({
@@ -39,11 +41,13 @@ root.render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <ConnectedRouter history={history}>
-          <Router>
-            <Route component={MainAppNavigator} />
-          </Router>
-        </ConnectedRouter>
+        <Suspense fallback={<LoadingCommon />}>
+          <ConnectedRouter history={history}>
+            <Router>
+              <Route component={MainAppNavigator} />
+            </Router>
+          </ConnectedRouter>
+        </Suspense>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </Provider>

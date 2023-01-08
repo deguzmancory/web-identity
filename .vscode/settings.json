@@ -29,7 +29,9 @@
     "trimmable",
     "lightbox",
     "RCUH",
-    "Hawai"
+    "Hawai",
+    "noopener",
+    "noreferrer"
   ],
   "files.exclude": {
     "bin": false,
