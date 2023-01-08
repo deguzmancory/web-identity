@@ -45,7 +45,7 @@ phases:
   pre_build:
     commands:
       - npm install -g yarn
-      - yarn
+      - yarn install --prod
   build:
     commands:
       - echo NODE_ENV=production >> .env
