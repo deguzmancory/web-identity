@@ -129,7 +129,7 @@ const TPAWelcome: React.FC<Props> = ({ location, onSetWelcomeScreen }) => {
           ) : (
             <View>
               <View>
-                <Text size={40} className={cn('fw-bold mb-24 text-color-grey-900')}>
+                <Text size={40} className={cn('fw-bold mb-24 text-color-primary-900')}>
                   {'Welcome!'}
                 </Text>
                 <Text className={cn('mb-24')}>

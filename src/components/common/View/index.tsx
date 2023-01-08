@@ -1,8 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
+import React from 'react';
 
-import { IRootState } from 'src/redux/rootReducer';
 import './styles.scss';
 
 const View: React.FC<ViewProps> = ({
@@ -43,27 +41,24 @@ const View: React.FC<ViewProps> = ({
   );
 };
 
-export type ViewProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
-    isRow?: boolean;
-    justify?:
-      | 'center'
-      | 'space-between'
-      | 'flex-start'
-      | 'flex-end'
-      | 'space-around'
-      | 'space-evenly';
-    align?: 'center' | 'flex-start' | 'flex-end';
-    renderIf?: boolean;
-    flexGrow?: number;
-    isRowWrap?: boolean;
-    forwardRef?: React.LegacyRef<HTMLDivElement>;
-    fullWidth?: boolean;
-  };
+export type ViewProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> & {
+  isRow?: boolean;
+  justify?:
+    | 'center'
+    | 'space-between'
+    | 'flex-start'
+    | 'flex-end'
+    | 'space-around'
+    | 'space-evenly';
+  align?: 'center' | 'flex-start' | 'flex-end';
+  renderIf?: boolean;
+  flexGrow?: number;
+  isRowWrap?: boolean;
+  forwardRef?: React.LegacyRef<HTMLDivElement>;
+  fullWidth?: boolean;
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(View);
+export default View;

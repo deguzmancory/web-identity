@@ -4,7 +4,7 @@ import React, { useState, useMemo, useRef } from 'react';
 import { connect } from 'react-redux';
 import { BsExclamationCircleFill as ExclamationIcon } from 'react-icons/bs';
 import appConfig from 'src/appConfig';
-import ComfirmationCodeField from 'src/components/ComfirmationCodeField';
+import ComfirmationCodeField from 'src/components/common/ConfirmationCodeField';
 import { Text, View, Button, Link, LoadingCommon, Form } from 'src/components/common';
 
 import { IRootState } from 'src/redux/rootReducer';

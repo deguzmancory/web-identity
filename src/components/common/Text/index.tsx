@@ -1,8 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
+import React from 'react';
 
-import { IRootState } from 'src/redux/rootReducer';
 import './styles.scss';
 
 const Text: React.FC<Props> = ({
@@ -27,16 +25,13 @@ const Text: React.FC<Props> = ({
   );
 };
 
-export type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> & {
-    variant?: 'title' | 'titleUnderline';
-    size?: number;
-    children?: React.ReactNode;
-  };
+export type Props = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLParagraphElement>,
+  HTMLParagraphElement
+> & {
+  variant?: 'title' | 'titleUnderline';
+  size?: number;
+  children?: React.ReactNode;
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Text);
+export default Text;

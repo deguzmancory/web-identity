@@ -1,8 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
+import React from 'react';
 
-import { IRootState } from 'src/redux/rootReducer';
 import './styles.scss';
 
 const Link: React.FC<Props> = ({ children, className, ...props }) => {
@@ -13,12 +11,9 @@ const Link: React.FC<Props> = ({ children, className, ...props }) => {
   );
 };
 
-export type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {};
+export type Props = React.DetailedHTMLProps<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+> & {};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Link);
+export default Link;

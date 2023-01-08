@@ -12,7 +12,7 @@
 
   &__header {
     padding: 16px 20px;
-    background-color: $color-grey-50;
+    background-color: $color-primary-50;
     font-weight: $font-weight-bold;
     border-top-left-radius: $default-border-radius;
     border-top-right-radius: $default-border-radius;
@@ -20,7 +20,7 @@
 
     &--expanded {
       border-bottom: $default-border;
-      background-color: $color-grey-50;
+      background-color: $color-primary-50;
     }
 
     &--collapsed {
@@ -29,7 +29,7 @@
 
     &__icon {
       border: $default-border;
-      border-color: $color-grey-600;
+      border-color: $color-primary-600;
       border-radius: $default-border-radius;
       background-color: $color-white;
       padding: 8px;

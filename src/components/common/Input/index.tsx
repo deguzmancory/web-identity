@@ -1,15 +1,13 @@
-import React, { HTMLProps, MouseEventHandler, RefObject, useRef } from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
+import React, { HTMLProps, MouseEventHandler, RefObject, useRef } from 'react';
 
-import { IRootState } from 'src/redux/rootReducer';
+import { IconButton } from '@mui/material';
 import { getRandomId } from 'src/utils';
 import { isEmpty } from 'src/validations';
-import './styles.scss';
 import Element from '../Element';
-import View from '../View';
-import { IconButton } from '@mui/material';
 import Icon from '../Icon';
+import View from '../View';
+import './styles.scss';
 
 const Input: React.FC<InputProps> = ({
   children,
@@ -77,20 +75,8 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export const InputIcon = ({
-  iconName,
-  iconComponent,
-  // errorMessage,
-  isIconPositionLeft,
-  onIconClick,
-}) => {
+export const InputIcon = ({ iconName, iconComponent, isIconPositionLeft, onIconClick }) => {
   switch (true) {
-    // case !isEmpty(errorMessage):
-    //   return (
-    //     <MuiIcon onClick={onIconClick} classes={{ root: 'cmp-input__icon error p-0' }}>
-    //       <RiErrorWarningFill color={COLOR_CODE.DANGER} />
-    //     </MuiIcon>
-    //   );
     case !isEmpty(iconComponent):
       return (
         <IconButton onClick={onIconClick} classes={{ root: 'cmp-input__icon p-0' }}>
@@ -123,40 +109,34 @@ type BaseInputProps = Pick<
   HTMLProps<HTMLInputElement>,
   Exclude<keyof HTMLProps<HTMLInputElement>, 'label'>
 >;
-export type InputProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  BaseInputProps & {
-    errorMessage?: string;
-    containerClassName?: string;
-    inputRef?: RefObject<HTMLInputElement>;
-    subLabel?: string | React.ReactNode;
-    iconName?: string;
-    iconPosition?: 'left' | 'right';
-    onIconClick?: MouseEventHandler<HTMLElement>;
-    label?: string | React.ReactNode;
-    required?: boolean;
-    iconComponent?: React.ReactNode;
-    hideIconError?: boolean;
-    customIcon?: React.ReactElement;
-    infoTooltipMessage?: string;
-    infoTooltipPlacement?:
-      | 'bottom-end'
-      | 'bottom-start'
-      | 'bottom'
-      | 'left-end'
-      | 'left-start'
-      | 'left'
-      | 'right-end'
-      | 'right-start'
-      | 'right'
-      | 'top-end'
-      | 'top-start'
-      | 'top';
-    infoToolTipWithArrow?: boolean;
-  };
+export type InputProps = BaseInputProps & {
+  errorMessage?: string;
+  containerClassName?: string;
+  inputRef?: RefObject<HTMLInputElement>;
+  subLabel?: string | React.ReactNode;
+  iconName?: string;
+  iconPosition?: 'left' | 'right';
+  onIconClick?: MouseEventHandler<HTMLElement>;
+  label?: string | React.ReactNode;
+  required?: boolean;
+  iconComponent?: React.ReactNode;
+  hideIconError?: boolean;
+  customIcon?: React.ReactElement;
+  infoTooltipMessage?: string;
+  infoTooltipPlacement?:
+    | 'bottom-end'
+    | 'bottom-start'
+    | 'bottom'
+    | 'left-end'
+    | 'left-start'
+    | 'left'
+    | 'right-end'
+    | 'right-start'
+    | 'right'
+    | 'top-end'
+    | 'top-start'
+    | 'top';
+  infoToolTipWithArrow?: boolean;
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Input);
+export default Input;

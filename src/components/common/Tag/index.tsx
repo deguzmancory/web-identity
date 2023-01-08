@@ -1,7 +1,5 @@
 import cn from 'classnames';
 import React from 'react';
-import { connect } from 'react-redux';
-import { IRootState } from 'src/redux/rootReducer';
 import './styles.scss';
 
 const Tag: React.FC<Props> = ({
@@ -43,21 +41,18 @@ export type TagVariant =
   | 'is-warning'
   | 'is-danger'
   | 'is-customize';
-export type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> & {
-    variant?: TagVariant;
-    isLight?: boolean;
-    size?: 'is-normal' | 'is-medium' | 'is-large';
-    fullWidth?: boolean;
-    backgroundColor?: string;
-    color?: string;
-    className?: string;
-    status?: string;
-  };
+export type Props = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLSpanElement>,
+  HTMLSpanElement
+> & {
+  variant?: TagVariant;
+  isLight?: boolean;
+  size?: 'is-normal' | 'is-medium' | 'is-large';
+  fullWidth?: boolean;
+  backgroundColor?: string;
+  color?: string;
+  className?: string;
+  status?: string;
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Tag);
+export default Tag;

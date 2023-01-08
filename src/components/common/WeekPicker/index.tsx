@@ -1,14 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
+import React, { useRef, useState } from 'react';
 import DatePicker, { ReactDatePickerProps } from 'react-datepicker';
 
-import { IRootState } from 'src/redux/rootReducer';
-import './styles.scss';
-import Element from '../Element';
+import dayjs from 'dayjs';
 import { getRandomId } from 'src/utils';
 import { isEmpty } from 'src/validations';
-import dayjs from 'dayjs';
+import Element from '../Element';
+import './styles.scss';
 
 type Week = [Date, Date];
 
@@ -88,20 +86,14 @@ const WeekPicker: React.FC<Props> = ({
   );
 };
 
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  ReactDatePickerProps & {
-    errorMessage?: string;
-    containerClassName?: string;
-    classNames?: string;
-    placeholder?: string;
-    label?: string;
-    onChange?: (value: Week) => void;
-    weekSelected?: Week;
-  };
+type Props = ReactDatePickerProps & {
+  errorMessage?: string;
+  containerClassName?: string;
+  classNames?: string;
+  placeholder?: string;
+  label?: string;
+  onChange?: (value: Week) => void;
+  weekSelected?: Week;
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(WeekPicker);
+export default WeekPicker;

@@ -15,16 +15,16 @@ const configTheme = createTheme({
       main: COLOR_CODE.PRIMARY,
     },
     grey: {
-      '50': COLOR_CODE.GREY_50,
-      '100': COLOR_CODE.GREY_100,
-      '200': COLOR_CODE.GREY_200,
-      '300': COLOR_CODE.GREY_300,
-      '400': COLOR_CODE.GREY_400,
-      '500': COLOR_CODE.GREY_500,
-      '600': COLOR_CODE.GREY_600,
-      '700': COLOR_CODE.GREY_700,
-      '800': COLOR_CODE.GREY_800,
-      '900': COLOR_CODE.GREY_900,
+      '50': COLOR_CODE.PRIMARY_50,
+      '100': COLOR_CODE.PRIMARY_100,
+      '200': COLOR_CODE.PRIMARY_200,
+      '300': COLOR_CODE.PRIMARY_300,
+      '400': COLOR_CODE.PRIMARY_400,
+      '500': COLOR_CODE.PRIMARY_500,
+      '600': COLOR_CODE.PRIMARY_600,
+      '700': COLOR_CODE.PRIMARY_700,
+      '800': COLOR_CODE.PRIMARY_800,
+      '900': COLOR_CODE.PRIMARY_900,
     },
     success: {
       main: COLOR_CODE.SUCCESS,
@@ -117,6 +117,13 @@ const configTheme = createTheme({
     MuiLink: {
       defaultProps: {
         underline: 'hover',
+      },
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            color: COLOR_CODE.INFO,
+          },
+        },
       },
     },
   },

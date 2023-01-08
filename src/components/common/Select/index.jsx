@@ -1,15 +1,14 @@
-import React, { useRef } from 'react';
 import cn from 'classnames';
-import Select from 'react-select';
-import './styles.scss';
+import { useRef } from 'react';
+import { FiSearch } from 'react-icons/fi';
+import { IoCaretDownOutline } from 'react-icons/io5';
+import Select, { components } from 'react-select';
+import { COLOR_CODE } from 'src/appConfig/constants';
+import { getRandomId } from 'src/utils';
+import { isEmpty } from 'src/validations';
 import Element from '../Element';
 import View from '../View';
-import { isEmpty } from 'src/validations';
-import { getRandomId } from 'src/utils';
-import { COLOR_CODE } from 'src/appConfig/constants';
-import { components } from 'react-select';
-import { IoCaretDownOutline } from 'react-icons/io5';
-import { FiSearch } from 'react-icons/fi';
+import './styles.scss';
 
 const DropdownIndicator = (props) => {
   return (
@@ -25,6 +24,9 @@ const Control = ({ children, ...props }) => (
     {children}
   </components.Control>
 );
+const ControlNoSearchIcon = ({ children, ...props }) => (
+  <components.Control {...props}>{children}</components.Control>
+);
 
 const SelectCmp = ({
   options,
@@ -37,17 +39,23 @@ const SelectCmp = ({
   containerClassName = '',
   onBlur,
   name = '',
+  isTranslatable = false,
   required = false,
   infoTooltipMessage = '',
   infoTooltipPlacement = 'right',
   infoToolTipWithArrow = true,
+  hideSearchIcon = false,
   isClearable = true,
   isDisabled = false,
+  isMulti = false,
+  menuPosition = 'fixed',
   ...props
 }) => {
   const id = useRef(`select-${getRandomId()}`);
   const handleChange = (selectedOption) => {
-    onChange(name, selectedOption?.value || null);
+    if (isMulti) {
+      onChange(name, selectedOption ? selectedOption.map((item) => item?.value) : null);
+    } else onChange(name, selectedOption?.value || null);
   };
 
   const handleSelectBlur = (event) => {
@@ -55,7 +63,9 @@ const SelectCmp = ({
   };
   const hasError = !isEmpty(errorMessage);
 
-  const selectedOption = options?.find((option) => option.value === value) || null;
+  const selectedOption = isMulti
+    ? options?.filter((option) => value.includes(option.value)) || null
+    : options?.find((option) => option.value === value) || null;
   // For custom select, follow this link:
   // https://react-select.com/styles#using-classnames
   return (
@@ -64,6 +74,7 @@ const SelectCmp = ({
       errorMessage={errorMessage}
       label={label}
       className={containerClassName}
+      isTranslatable={isTranslatable}
       required={required}
       infoTooltipMessage={infoTooltipMessage}
       infoTooltipPlacement={infoTooltipPlacement}
@@ -82,6 +93,7 @@ const SelectCmp = ({
             'cmp-select--error': hasError,
             'cmp-select--is-disabled': isDisabled,
           })}
+          isMulti={isMulti}
           classNamePrefix="cmp-select"
           menuPlacement="auto"
           onBlur={handleSelectBlur}
@@ -97,8 +109,9 @@ const SelectCmp = ({
           {...props}
           components={{
             DropdownIndicator,
-            Control,
+            Control: hideSearchIcon ? ControlNoSearchIcon : Control,
           }}
+          menuPosition={menuPosition}
         />
       </View>
     </Element>

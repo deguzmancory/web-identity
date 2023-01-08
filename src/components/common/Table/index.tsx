@@ -1,7 +1,4 @@
 /* eslint-disable security/detect-object-injection */
-import React, { memo, useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
-import { useLocation, useHistory } from 'react-router-dom';
 import { flatten } from 'lodash';
 import {
   Display,
@@ -10,11 +7,12 @@ import {
   MUIDataTableState,
   MUISortOptions,
 } from 'mui-datatables';
-import { IRootState } from 'src/redux/rootReducer';
-import { TableBasic } from 'src/components/common';
-import './styles.scss';
+import React, { memo, useEffect, useRef } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import appConfig from 'src/appConfig';
+import { TableBasic } from 'src/components/common';
 import { isEmpty } from 'src/validations';
+import './styles.scss';
 
 enum TableQueryParams {
   SEARCH = 'search',
@@ -196,22 +194,17 @@ const Table: React.FC<Props> = ({
   );
 };
 
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps & {
-    title?: React.ReactNode;
-    data: any[];
-    tableOptions: MUIDataTableOptions;
-    columns: MUIDataTableColumn[];
-    refresh?: boolean | number | string;
-    onAction: (...args: any[]) => void;
-    defaultSortOrder?: MUISortOptions;
-    isLoading?: boolean;
-    emptyComponent?: React.ReactNode;
-    viewColumns?: string[];
-  };
+type Props = {
+  title?: React.ReactNode;
+  data: any[];
+  tableOptions: MUIDataTableOptions;
+  columns: MUIDataTableColumn[];
+  refresh?: boolean | number | string;
+  onAction: (...args: any[]) => void;
+  defaultSortOrder?: MUISortOptions;
+  isLoading?: boolean;
+  emptyComponent?: React.ReactNode;
+  viewColumns?: string[];
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(memo(Table));
+export default memo(Table);

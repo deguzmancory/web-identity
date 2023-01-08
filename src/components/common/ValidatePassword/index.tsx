@@ -1,13 +1,11 @@
-import React, { useEffect, useMemo } from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
+import React, { useEffect, useMemo } from 'react';
 
-import './styles.scss';
-import { IRootState } from 'src/redux/rootReducer';
+import { Callback } from 'src/redux/types';
 import { View } from '../';
 import Icon from '../Icon';
 import Text from '../Text';
-import { Callback } from 'src/redux/types';
+import './styles.scss';
 
 const ValidatePassword: React.FC<Props> = ({ className, password, oldPassword = '', onChange }) => {
   const validateSchemas: Array<{
@@ -74,15 +72,11 @@ const ValidatePassword: React.FC<Props> = ({ className, password, oldPassword = 
   );
 };
 
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps & {
-    className?: string;
-    onChange?: Callback;
-    password: string;
-    oldPassword?: string;
-  };
-const mapStateToProps = (state: IRootState) => ({});
+type Props = {
+  className?: string;
+  onChange?: Callback;
+  password: string;
+  oldPassword?: string;
+};
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ValidatePassword);
+export default ValidatePassword;

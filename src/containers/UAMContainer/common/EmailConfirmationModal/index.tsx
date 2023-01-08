@@ -5,7 +5,7 @@ import cn from 'classnames';
 
 import appConfig from 'src/appConfig';
 import { Button, Form, Link, LoadingCommon, Text, View } from 'src/components/common';
-import ComfirmationCodeField from 'src/components/ComfirmationCodeField';
+import ComfirmationCodeField from 'src/components/common/ConfirmationCodeField';
 import { IRootState } from 'src/redux/rootReducer';
 import { RiErrorWarningFill } from 'react-icons/ri';
 // import { hideModal } from 'src/redux/modal/modalSlice';

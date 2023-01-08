@@ -1,11 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import CurrencyFormat from 'react-currency-format';
-import { IRootState } from 'src/redux/rootReducer';
-import { Input } from '..';
-import { InputIcon, InputProps } from '../Input';
 import { Callback } from 'src/redux/types';
 import { emptyFunction, MoneyInputDetect } from 'src/utils';
+import { Input } from '..';
+import { InputIcon, InputProps } from '../Input';
 
 const DollarInputIcon = (
   <InputIcon
@@ -53,8 +51,4 @@ type Props = Omit<CurrencyFormat.Props, 'InputProps'> & { InputProps: InputProps
   onChange: Callback;
 };
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(InputCurrency);
+export default InputCurrency;

@@ -1,20 +1,18 @@
+import cn from 'classnames';
 import React, { HTMLProps } from 'react';
 import { connect } from 'react-redux';
-import cn from 'classnames';
 
+import { useLocation } from 'react-router-dom';
+import { HIDE_NAV_PATHS } from 'src/appConfig/paths';
 import { IRootState } from 'src/redux/rootReducer';
 import View from '../View';
 import './styles.scss';
-import { HIDE_NAV_PATHS } from 'src/appConfig/paths';
-import { useLocation } from 'react-router-dom';
-// import Footer from 'src/components/Footer';
 
 const Screen: React.FC<Props> = ({
   showNavbar,
   showSidebar,
   collapseSidebar,
   showMiniSidebar,
-  // changingLocale,
   children,
 }) => {
   const location = useLocation();
@@ -44,7 +42,6 @@ const mapStateToProps = (state: IRootState) => ({
   showSidebar: state.common.showSidebar,
   collapseSidebar: state.common.collapseSidebar,
   showMiniSidebar: state.common.showMiniSidebar,
-  // changingLocale: state.common.changingLocale,
 });
 
 const mapDispatchToProps = {};

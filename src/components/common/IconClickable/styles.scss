@@ -1,8 +1,0 @@
-@use '~src/scss/vars' as *;
-@use '~src/scss/mixin' as *;
-
-.cmp-icon {
-  &--clickable:focus {
-    box-shadow: $focus-shadow;
-  }
-}

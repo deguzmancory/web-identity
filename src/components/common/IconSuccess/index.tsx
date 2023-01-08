@@ -1,7 +1,6 @@
-import React from 'react';
 import cn from 'classnames';
+import React from 'react';
 
-import { IRootState } from 'src/redux/rootReducer';
 import './styles.scss';
 
 const IconSuccess: React.FC<Props> = ({ size = 100, className }) => {
@@ -15,11 +14,6 @@ const IconSuccess: React.FC<Props> = ({ size = 100, className }) => {
   );
 };
 
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps & { size?: number; className?: string };
-
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
+type Props = { size?: number; className?: string };
 
 export default IconSuccess;

@@ -1,9 +1,7 @@
 import { ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import cn from 'classnames';
 import React from 'react';
-import { connect } from 'react-redux';
 import { IMAGES } from 'src/appConfig/images';
-import { IRootState } from 'src/redux/rootReducer';
 import { Callback } from 'src/redux/types';
 import { Image, Text, View } from '../common';
 import './styles.scss';
@@ -44,7 +42,7 @@ const Logo: React.FC<Props> = ({
           </View>
           <Text
             size={titleSize}
-            className={cn(`fw-bold text-color-grey-900 mt-16`, {
+            className={cn(`fw-bold text-color-primary-900 mt-16`, {
               'text-center': isColumn,
             })}
             color={titleColor ? titleColor : undefined}
@@ -53,7 +51,7 @@ const Logo: React.FC<Props> = ({
           </Text>
           <Text
             size={subTitleSize}
-            className={cn(`fw-normal text-color-grey-600  mt-8`, {
+            className={cn(`fw-normal text-color-primary-600  mt-8`, {
               'text-center': isColumn,
             })}
             color={subTitleColor ? subTitleColor : undefined}
@@ -84,7 +82,7 @@ const Logo: React.FC<Props> = ({
             primary={
               !hideTitle ? (
                 <span
-                  className={cn(`fw-bold text-color-grey-900`, {
+                  className={cn(`fw-bold text-color-primary-900`, {
                     'text-center': isColumn,
                   })}
                   style={{
@@ -99,7 +97,7 @@ const Logo: React.FC<Props> = ({
             secondary={
               !hideSubTitle ? (
                 <span
-                  className={cn(`fw-bold text-color-grey-900`, {
+                  className={cn(`fw-bold text-color-primary-900`, {
                     'text-center': isColumn,
                   })}
                   style={{
@@ -119,24 +117,20 @@ const Logo: React.FC<Props> = ({
   );
 };
 
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps & {
-    className?: string;
-    logoSize?: string | number;
-    title?: string;
-    titleSize?: number;
-    subTitle?: string;
-    subTitleSize?: number;
-    spacing?: number;
-    onClick?: Callback;
-    hideTitle?: boolean;
-    hideSubTitle?: boolean;
-    titleColor?: string;
-    subTitleColor?: string;
-    isColumn?: boolean;
-  };
-const mapStateToProps = (state: IRootState) => ({});
+type Props = {
+  className?: string;
+  logoSize?: string | number;
+  title?: string;
+  titleSize?: number;
+  subTitle?: string;
+  subTitleSize?: number;
+  spacing?: number;
+  onClick?: Callback;
+  hideTitle?: boolean;
+  hideSubTitle?: boolean;
+  titleColor?: string;
+  subTitleColor?: string;
+  isColumn?: boolean;
+};
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Logo);
+export default Logo;

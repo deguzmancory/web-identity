@@ -1,15 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
+import React from 'react';
 
-import { IRootState } from 'src/redux/rootReducer';
+import { Tooltip, Typography } from '@mui/material';
+import { IoInformationCircle } from 'react-icons/io5';
+import { COLOR_CODE } from 'src/appConfig/constants';
+import { ViewProps } from 'src/components/common/View';
+import { isEmpty } from 'src/validations';
 import View from '../View';
 import './styles.scss';
-import { isEmpty } from 'src/validations';
-import { ViewProps } from 'src/components/common/View';
-import { Tooltip, Typography } from '@mui/material';
-import { COLOR_CODE } from 'src/appConfig/constants';
-import { IoInformationCircle } from 'react-icons/io5';
 
 const Element: React.FC<Props> = ({
   id,
@@ -31,7 +29,12 @@ const Element: React.FC<Props> = ({
   return (
     <View className={cn(className, 'form-element')} {...props}>
       {hasLabel && (
-        <Typography variant="body2">
+        <Typography
+          variant="body2"
+          classes={{
+            root: 'mb-1',
+          }}
+        >
           {label} {required && <span className="has-text-danger fw-bold text-is-16">*</span>}
           {infoTooltipMessage && (
             <span>
@@ -72,35 +75,29 @@ const Element: React.FC<Props> = ({
   );
 };
 
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  ViewProps & {
-    children: React.ReactNode;
-    id?: string;
-    label?: string | React.ReactNode;
-    errorMessage?: string;
-    className?: string;
-    subLabel?: string | React.ReactNode;
-    required?: boolean;
-    infoTooltipMessage?: string;
-    infoTooltipPlacement?:
-      | 'bottom-end'
-      | 'bottom-start'
-      | 'bottom'
-      | 'left-end'
-      | 'left-start'
-      | 'left'
-      | 'right-end'
-      | 'right-start'
-      | 'right'
-      | 'top-end'
-      | 'top-start'
-      | 'top';
-    infoToolTipWithArrow?: boolean;
-  };
+type Props = ViewProps & {
+  children: React.ReactNode;
+  id?: string;
+  label?: string | React.ReactNode;
+  errorMessage?: string;
+  className?: string;
+  subLabel?: string | React.ReactNode;
+  required?: boolean;
+  infoTooltipMessage?: string;
+  infoTooltipPlacement?:
+    | 'bottom-end'
+    | 'bottom-start'
+    | 'bottom'
+    | 'left-end'
+    | 'left-start'
+    | 'left'
+    | 'right-end'
+    | 'right-start'
+    | 'right'
+    | 'top-end'
+    | 'top-start'
+    | 'top';
+  infoToolTipWithArrow?: boolean;
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Element);
+export default Element;

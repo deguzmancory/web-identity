@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 
-import { IRootState } from 'src/redux/rootReducer';
-import './styles.scss';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { Input } from '..';
 import { InputProps } from '../Input';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import './styles.scss';
 
 const InputPassword: React.FC<Props> = (props) => {
   const [hidden, setHidden] = useState<boolean>(true);
@@ -18,10 +16,6 @@ const InputPassword: React.FC<Props> = (props) => {
   return <Input {...props} type={inputType} iconComponent={iconName} onIconClick={toggleEye} />;
 };
 
-type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps & InputProps;
+type Props = InputProps;
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(InputPassword);
+export default InputPassword;

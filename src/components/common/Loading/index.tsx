@@ -1,8 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
+import React from 'react';
 
-import { IRootState } from 'src/redux/rootReducer';
 import { View } from 'src/components/common';
 import { ViewProps } from 'src/components/common/View';
 import './styles.scss';
@@ -24,9 +22,10 @@ const Loading: React.FC<LoadingProps> = ({
           `cmp-loading--${variant}`,
           `cmp-loading--${size}`,
           `cmp-loading--${position}`,
-          className,
+          className
         )}
-        {...props}>
+        {...props}
+      >
         {loadingStyle === 1 && <LoadingStyle1 />}
         {loadingStyle === 2 && <LoadingStyle2 />}
         {loadingStyle === 3 && <LoadingStyle3 />}
@@ -75,18 +74,12 @@ const LoadingStyle4 = () => (
 
 const LoadingStyle5 = () => <View className="cmp-loading__style-5" />;
 
-export type LoadingProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  ViewProps & {
-    visible?: boolean;
-    loadingStyle?: 1 | 2 | 3 | 4 | 5;
-    size?: 'normal' | 'small';
-    variant?: 'white' | 'primary' | 'secondary';
-    position?: 'relative' | 'absolute';
-  };
+export type LoadingProps = ViewProps & {
+  visible?: boolean;
+  loadingStyle?: 1 | 2 | 3 | 4 | 5;
+  size?: 'normal' | 'small';
+  variant?: 'white' | 'primary' | 'secondary';
+  position?: 'relative' | 'absolute';
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loading);
+export default Loading;

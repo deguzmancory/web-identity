@@ -2,7 +2,7 @@
 @use '~src/scss/mixin' as *;
 
 .cmp-button {
-  height: $button-normal;
+  height: $button-small;
   border-radius: $default-border-radius;
   background-color: $color-primary;
   color: $color-white;
@@ -10,7 +10,7 @@
   padding: 0 24px;
   min-width: 92px;
 
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
 
   display: inline-flex;

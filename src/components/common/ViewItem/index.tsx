@@ -1,14 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
+import React from 'react';
 
-import { IRootState } from 'src/redux/rootReducer';
-import './styles.scss';
-import { Grid, View } from '..';
-import { isEmpty } from 'src/validations';
 import { Tooltip } from '@mui/material';
 import { IoInformationCircle } from 'react-icons/io5';
 import { COLOR_CODE } from 'src/appConfig/constants';
+import { isEmpty } from 'src/validations';
+import { Grid, View } from '..';
+import './styles.scss';
 
 const ViewItem: React.FC<Props> = ({
   label,
@@ -52,36 +50,31 @@ const ViewItem: React.FC<Props> = ({
   );
 };
 
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps & {
-    label?: string | React.ReactElement;
-    value?: string | boolean | number | React.ReactElement;
-    variant?:
-      | 'is-three-quarters'
-      | 'is-two-thirds'
-      | 'is-half'
-      | 'is-one-third'
-      | 'is-one-quarter'
-      | 'is-full';
-    infoTooltipMessage?: string;
-    infoTooltipPlacement?:
-      | 'bottom-end'
-      | 'bottom-start'
-      | 'bottom'
-      | 'left-end'
-      | 'left-start'
-      | 'left'
-      | 'right-end'
-      | 'right-start'
-      | 'right'
-      | 'top-end'
-      | 'top-start'
-      | 'top';
-    infoToolTipWithArrow?: boolean;
-  };
+type Props = {
+  label?: string | React.ReactElement;
+  value?: string | boolean | number | React.ReactElement;
+  variant?:
+    | 'is-three-quarters'
+    | 'is-two-thirds'
+    | 'is-half'
+    | 'is-one-third'
+    | 'is-one-quarter'
+    | 'is-full';
+  infoTooltipMessage?: string;
+  infoTooltipPlacement?:
+    | 'bottom-end'
+    | 'bottom-start'
+    | 'bottom'
+    | 'left-end'
+    | 'left-start'
+    | 'left'
+    | 'right-end'
+    | 'right-start'
+    | 'right'
+    | 'top-end'
+    | 'top-start'
+    | 'top';
+  infoToolTipWithArrow?: boolean;
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ViewItem);
+export default ViewItem;

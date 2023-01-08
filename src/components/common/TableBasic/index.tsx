@@ -1,3 +1,5 @@
+import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
+import cn from 'classnames';
 import MUIDataTable, {
   debounceSearchRender,
   MUIDataTableOptions,
@@ -5,10 +7,6 @@ import MUIDataTable, {
   MUIDataTableState,
 } from 'mui-datatables';
 import React, { memo, useMemo } from 'react';
-import { connect } from 'react-redux';
-import cn from 'classnames';
-import { createTheme, ThemeProvider, ThemeOptions } from '@mui/material/styles';
-import { IRootState } from 'src/redux/rootReducer';
 import { LoadingCommon, View } from 'src/components/common';
 import './styles.scss';
 
@@ -122,19 +120,13 @@ const TableBasic: React.FC<Props> = ({
   );
 };
 
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  MUIDataTableProps & {
-    containerClassName?: string;
-    currentPage?: number;
-    total?: number;
-    onTableChange: (action: string, tableState: MUIDataTableState) => void;
-    isLoading?: boolean;
-    emptyComponent?: React.ReactNode;
-  };
+type Props = MUIDataTableProps & {
+  containerClassName?: string;
+  currentPage?: number;
+  total?: number;
+  onTableChange: (action: string, tableState: MUIDataTableState) => void;
+  isLoading?: boolean;
+  emptyComponent?: React.ReactNode;
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(memo(TableBasic));
+export default memo(TableBasic);

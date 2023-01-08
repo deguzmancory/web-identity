@@ -107,7 +107,7 @@ const ResetPassword: React.FC<Props> = ({ location }) => {
               <h1 className={cn('ctn-uam__title ml-16')}>{'Password Updated'}</h1>
             </View>
           ) : (
-            <Text size={40} className={cn('fw-bold mb-24 text-color-grey-900')}>
+            <Text size={40} className={cn('fw-bold mb-24 text-color-primary-900')}>
               Reset Password
             </Text>
           )}

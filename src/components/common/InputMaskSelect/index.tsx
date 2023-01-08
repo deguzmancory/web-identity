@@ -1,12 +1,12 @@
-import React, { useRef } from 'react';
 import cn from 'classnames';
+import { useRef } from 'react';
 import Select from 'react-select';
-import './styles.scss';
-import Element from '../Element';
-import View from '../View';
-import { isEmpty } from 'src/validations';
 import { getRandomId } from 'src/utils';
+import { isEmpty } from 'src/validations';
+import Element from '../Element';
 import InputMask from '../InputMask';
+import View from '../View';
+import './styles.scss';
 
 const InputMaskSelect = ({
   options,

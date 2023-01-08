@@ -1,13 +1,11 @@
-import React, { useRef } from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
+import React, { useRef } from 'react';
 import DatePicker, { ReactDatePickerProps } from 'react-datepicker';
 
-import { IRootState } from 'src/redux/rootReducer';
-import './styles.scss';
-import Element from '../Element';
 import { getRandomId } from 'src/utils';
 import { isEmpty } from 'src/validations';
+import Element from '../Element';
+import './styles.scss';
 
 const TimePicker: React.FC<Props> = ({
   label,
@@ -32,12 +30,17 @@ const TimePicker: React.FC<Props> = ({
       id={id.current}
       errorMessage={errorMessage}
       label={label}
-      className={cn('cmp-datepicker cmp-datepicker__time', containerClassName)}>
+      className={cn('cmp-datepicker cmp-datepicker__time', containerClassName)}
+    >
       <DatePicker
         id={id.current}
         onChange={onChange}
         placeholderText={placeholder}
-        className={cn('cmp-datepicker__input', { 'cmp-datepicker__input--error': hasError }, classNames)}
+        className={cn(
+          'cmp-datepicker__input',
+          { 'cmp-datepicker__input--error': hasError },
+          classNames
+        )}
         showPopperArrow={false}
         timeFormat={timeFormat}
         dateFormat={dateFormat}
@@ -50,19 +53,13 @@ const TimePicker: React.FC<Props> = ({
   );
 };
 
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  ReactDatePickerProps & {
-    errorMessage?: string;
-    containerClassName?: string;
-    classNames?: string;
-    placeholder?: string;
-    label?: string;
-    onChange: (...args: any) => void;
-  };
+type Props = ReactDatePickerProps & {
+  errorMessage?: string;
+  containerClassName?: string;
+  classNames?: string;
+  placeholder?: string;
+  label?: string;
+  onChange: (...args: any) => void;
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TimePicker);
+export default TimePicker;

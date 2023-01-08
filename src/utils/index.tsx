@@ -13,7 +13,6 @@ import appConfig from 'src/appConfig';
 import { isEmpty } from 'src/validations';
 import { Location } from 'history';
 // import { AccountStatus, StatementStatus } from 'src/redux/account/types';
-import { StateOption } from 'src/appConfig/options';
 import _ from 'lodash';
 
 export const handleGetError = (touched, errors, prefix) =>
@@ -128,9 +127,6 @@ export const getClassNameByStatus = (status) => {
       return '';
   }
 };
-
-export const convertStateOptionsToOptions = (options: StateOption[]) =>
-  options.map((option) => ({ value: option.name, label: option.name }));
 
 export const getYesNoText = (value: boolean) => (value ? 'Yes' : 'No');
 

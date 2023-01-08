@@ -1,11 +1,11 @@
-import { useRef } from 'react';
 import cn from 'classnames';
+import { useRef } from 'react';
 import PhoneInput from 'react-phone-number-input';
-import './styles.scss';
-import View from '../View';
-import Element from '../Element';
 import { getRandomId } from 'src/utils';
 import { isEmpty } from 'src/validations';
+import Element from '../Element';
+import View from '../View';
+import './styles.scss';
 
 export default ({
   label,

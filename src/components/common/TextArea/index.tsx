@@ -1,14 +1,12 @@
-import React, { HTMLProps, MouseEventHandler, RefObject, useRef } from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
+import React, { HTMLProps, MouseEventHandler, RefObject, useRef } from 'react';
 
-import { IRootState } from 'src/redux/rootReducer';
 import { getRandomId } from 'src/utils';
 import { isEmpty } from 'src/validations';
-import './styles.scss';
+import { Icon } from '..';
 import Element from '../Element';
 import View from '../View';
-import { Icon } from '..';
+import './styles.scss';
 
 const Input: React.FC<InputProps> = ({
   children,
@@ -51,20 +49,14 @@ type BaseInputProps = Pick<
   HTMLProps<HTMLTextAreaElement>,
   Exclude<keyof HTMLProps<HTMLTextAreaElement>, 'label'>
 >;
-export type InputProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  BaseInputProps & {
-    errorMessage?: string;
-    containerClassName?: string;
-    inputRef?: RefObject<HTMLTextAreaElement>;
-    iconName?: string;
-    onIconClick?: MouseEventHandler<HTMLElement>;
-    label?: string | React.ReactNode;
-    required?: boolean;
-  };
+export type InputProps = BaseInputProps & {
+  errorMessage?: string;
+  containerClassName?: string;
+  inputRef?: RefObject<HTMLTextAreaElement>;
+  iconName?: string;
+  onIconClick?: MouseEventHandler<HTMLElement>;
+  label?: string | React.ReactNode;
+  required?: boolean;
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Input);
+export default Input;

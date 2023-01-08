@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
-import './styles.scss';
+import React, { useEffect, useRef, useState } from 'react';
 import shortid from 'shortid';
+import { BOOLEAN } from 'src/appConfig/constants';
 import { View } from '..';
 import Element from '../Element';
-import { BOOLEAN } from 'src/appConfig/constants';
+import './styles.scss';
 
 const RadioButton: React.FC<RadioProps> = ({
   label,

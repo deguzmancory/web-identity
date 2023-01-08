@@ -15,7 +15,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   isFull,
   isLoading,
   type = 'button',
-  variant = 'secondary',
+  variant = 'primary',
   onClick = (event) => {},
   ...props
 }) => {

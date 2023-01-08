@@ -1,5 +1,5 @@
 :root {
-  --primary: #2f302f;
+  --primary: #333333;
   --secondary: #0088cc;
   --danger: #db0012;
   --success: #2d934e;
@@ -13,7 +13,7 @@
   --link-dark: #2a5cb1;
 }
 
-$primary: #0361d0;
+$primary: #333333;
 $link: #0088cc;
 $success: #2d934e;
 $warning: #e87839;
@@ -35,27 +35,16 @@ $color-black-200: #918f90;
 $color-black-100: #bdbcbc;
 $color-black-50: #e5e4e4;
 
-$color-primary-900: #09170d;
-$color-primary-800: #0e1b12;
-$color-primary-700: #172219;
-$color-primary-600: #222922;
-$color-primary-500: #2f302f;
-$color-primary-400: #808280;
-$color-primary-300: #bec0be;
-$color-primary-200: #e8eae8;
-$color-primary-100: #f3f4f3;
-
-$color-grey-900: #333333;
-$color-grey-800: #2d2f31;
-$color-grey-700: #484c4f;
-$color-grey-600: #6d7176;
-$color-grey-500: #91979e;
-$color-grey-400: #b5bdc5;
-$color-grey-300: #cfd4d9;
-$color-grey-200: #dee1e5;
-$color-grey-100: #edeff1;
-$color-grey-50: #f8f8f9;
-$color-grey-00: #ffffff;
+$color-primary-900: #1f1f1f;
+$color-primary-800: #1f1f1f;
+$color-primary-700: #333333;
+$color-primary-600: #525252;
+$color-primary-500: #787878;
+$color-primary-400: #999999;
+$color-primary-300: #b9b9b9;
+$color-primary-200: #d9d9d9;
+$color-primary-100: #ececec;
+$color-primary-50: #f8f8f8;
 
 $color-red-light: #ffeeee;
 $color-primary-red-light: #eefaff;
@@ -69,8 +58,8 @@ $color-text-inactive: var(--gray-light);
 $color-tab-panel: var(--light-black);
 
 $color-header: $color-black-500;
-$color-border: #91979e;
-$color-placeholder: #9e9e9e;
+$color-border: #cccccc;
+$color-placeholder: #999999;
 
 $color-primary: var(--primary);
 $color-primary-background: var(--background);

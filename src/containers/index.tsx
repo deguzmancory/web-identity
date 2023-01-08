@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Redirect, Route, RouteProps, Switch, useHistory } from 'react-router-dom';
 
 import { PATHS } from 'src/appConfig/paths';
-import { View } from 'src/components/common';
 import Navbar from 'src/components/Navbar';
 import { IRootState } from 'src/redux/rootReducer';
 import { Navigator, TenantService } from 'src/services';
@@ -24,6 +23,7 @@ import ForgotPassword from './UAMContainer/ForgotPassword';
 import ResetPassword from './UAMContainer/ResetPassword';
 import Signin from './UAMContainer/Signin';
 
+import { Box } from '@mui/material';
 import Footer from 'src/components/Footer';
 import { useComponentDidMount } from 'src/hooks';
 import Welcome from './UAMContainer/Welcome';
@@ -37,7 +37,7 @@ const Routing: React.FC<{ location: Location }> = (props) => {
   });
 
   return (
-    <View>
+    <Box pt={8}>
       <Navbar />
       <Switch location={props.location}>
         <Route path={PATHS.root} render={() => <Redirect to={PATHS.signIn} />} exact />
@@ -60,7 +60,7 @@ const Routing: React.FC<{ location: Location }> = (props) => {
       <UploadProgressContainer />
 
       <Footer />
-    </View>
+    </Box>
   );
 };
 

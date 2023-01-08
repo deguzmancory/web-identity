@@ -107,16 +107,16 @@ const ForgotPassword: React.FC<Props> = ({ location, onHideDialog, onShowDialog 
             isColumn={isTabletScreen}
             subTitleSize={isTabletScreen ? 14 : 16}
           />
-          <Text size={40} className={cn('fw-bold mb-16 text-color-grey-900')}>
+          <Text size={40} className={cn('fw-bold mb-16 text-color-primary-900')}>
             {'Reset Password'}
           </Text>
 
           {emailSent ? (
-            <Text className={cn('mb-16 text-color-grey-900')}>
+            <Text className={cn('mb-16 text-color-primary-900')}>
               {'Check your email for a link to reset your password.'}
             </Text>
           ) : (
-            <Text className={cn('mb-16 text-color-grey-900')}>
+            <Text className={cn('mb-16 text-color-primary-900')}>
               {
                 'Please enter the email associated with your account and we’ll send you instructions to reset your password.'
               }

@@ -1,16 +1,14 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { HTMLProps, MouseEventHandler, RefObject, useRef } from 'react';
-import { connect } from 'react-redux';
 import cn from 'classnames';
-import { IRootState } from 'src/redux/rootReducer';
+import React, { HTMLProps, MouseEventHandler, RefObject, useRef } from 'react';
+import InputMask from 'react-input-mask';
 import { getRandomId } from 'src/utils';
 import { isEmpty } from 'src/validations';
-import '../Input/styles.scss';
 import Element from '../Element';
-import View from '../View';
-import InputMask from 'react-input-mask';
 import { InputIcon } from '../Input';
+import '../Input/styles.scss';
+import View from '../View';
 
 const Input: React.FC<InputProps> = ({
   children,
@@ -75,40 +73,34 @@ type BaseInputProps = Pick<
   HTMLProps<HTMLInputElement>,
   Exclude<keyof HTMLProps<HTMLInputElement>, 'label'>
 >;
-export type InputProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  BaseInputProps & {
-    errorMessage?: string;
-    containerClassName?: string;
-    inputRef?: RefObject<HTMLInputElement>;
-    subLabel?: string | React.ReactNode;
-    onIconClick?: MouseEventHandler<HTMLElement>;
-    label?: string | React.ReactNode;
-    iconName?: string;
-    mask: string;
-    maskChar?: string;
-    required?: boolean;
-    iconComponent?: React.ReactNode;
-    hideIconError?: boolean;
-    infoTooltipMessage?: string;
-    infoTooltipPlacement?:
-      | 'bottom-end'
-      | 'bottom-start'
-      | 'bottom'
-      | 'left-end'
-      | 'left-start'
-      | 'left'
-      | 'right-end'
-      | 'right-start'
-      | 'right'
-      | 'top-end'
-      | 'top-start'
-      | 'top';
-    infoToolTipWithArrow?: boolean;
-  };
+export type InputProps = BaseInputProps & {
+  errorMessage?: string;
+  containerClassName?: string;
+  inputRef?: RefObject<HTMLInputElement>;
+  subLabel?: string | React.ReactNode;
+  onIconClick?: MouseEventHandler<HTMLElement>;
+  label?: string | React.ReactNode;
+  iconName?: string;
+  mask: string;
+  maskChar?: string;
+  required?: boolean;
+  iconComponent?: React.ReactNode;
+  hideIconError?: boolean;
+  infoTooltipMessage?: string;
+  infoTooltipPlacement?:
+    | 'bottom-end'
+    | 'bottom-start'
+    | 'bottom'
+    | 'left-end'
+    | 'left-start'
+    | 'left'
+    | 'right-end'
+    | 'right-start'
+    | 'right'
+    | 'top-end'
+    | 'top-start'
+    | 'top';
+  infoToolTipWithArrow?: boolean;
+};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Input);
+export default Input;
