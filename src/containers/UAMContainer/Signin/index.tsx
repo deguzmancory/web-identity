@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Grid, Link, Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import { FormikProps, useFormik } from 'formik';
 import { History } from 'history';
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { COLOR_CODE } from 'src/appConfig/constants';
 import { PATHS } from 'src/appConfig/paths';
 import { Button, Form, Input, InputPassword } from 'src/components/common';
@@ -164,21 +165,16 @@ const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog }) => {
           </Grid>
           <Grid item xs={12}>
             <Stack flexDirection={'row'} justifyContent={'center'}>
-              <Button
-                type="button"
-                variant="link"
-                className="ctn-uam__link mt-12 text-is-16 fit-width"
-                onClick={() => handleForgotPassword(values)}
-              >
+              <Button variant="link" onClick={() => handleForgotPassword(values)}>
                 Forgot Password?
               </Button>
             </Stack>
             <Stack flexDirection={'row'} justifyContent={'center'} mt={2}>
-              <Typography variant="body1" className="mr-1">
+              <Typography variant="body2" className="mr-1">
                 Don't have an account?
               </Typography>
-              <Link href={'#'}>
-                <Typography variant="body1" fontWeight="bold" color={COLOR_CODE.INFO}>
+              <Link to={PATHS.signUp}>
+                <Typography variant="body2" fontWeight="bold" color={COLOR_CODE.INFO}>
                   Learn more
                 </Typography>
               </Link>

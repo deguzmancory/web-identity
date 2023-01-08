@@ -5,17 +5,17 @@ export const portalOptions: {
 }[] = [
   {
     title: 'Financial Portal',
-    url: '#',
+    url: '/',
     isActive: true,
   },
   {
     title: 'Human Resources Portal',
-    url: '#',
+    url: 'https://hr521.rcuh.com/',
     isActive: false,
   },
   {
     title: 'Employee Self-Service',
-    url: '#',
+    url: 'https://hr521.rcuh.com/',
     isActive: false,
   },
 ];

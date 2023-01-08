@@ -3,6 +3,7 @@ import React from 'react';
 import appConfig from 'src/appConfig';
 import { IMAGES } from 'src/appConfig/images';
 import { isEmpty } from 'src/validations';
+import { externalsFooterLink } from './helpers';
 
 const Footer: React.FC<Props> = () => {
   return (
@@ -53,24 +54,7 @@ const Footer: React.FC<Props> = () => {
           </Grid>
           <Box pt={2}>
             <Stack flexDirection={'row'} justifyContent="center">
-              {[
-                {
-                  title: 'About',
-                  url: '#',
-                },
-                {
-                  title: 'News',
-                  url: '#',
-                },
-                {
-                  title: 'Work',
-                  url: '#',
-                },
-                {
-                  title: 'Training',
-                  url: '#',
-                },
-              ].map((item) => (
+              {externalsFooterLink.map((item) => (
                 <Link href={item.url} key={item.title}>
                   <Typography variant="body2" fontWeight={'bold'} color="white" mr={4}>
                     {item.title}
@@ -89,12 +73,14 @@ const Footer: React.FC<Props> = () => {
           </Box>
         </Container>
       </Box>
-      <Box bgcolor={'primary.main'} py={1} color="white">
+      <Box bgcolor={'primary.main'} py={1} borderTop={'1px solid white'}>
         <Stack flexDirection={'row'} justifyContent="center" alignItems="center" my={1}>
-          <Typography variant="body2" mr={3}>
+          <Typography variant="body2" mr={3} color={'white'}>
             © {new Date().getFullYear()} The Research Corporation of the University of Hawai’i
           </Typography>
-          <Typography variant="body2">v{appConfig.APP_VERSION}</Typography>
+          <Typography variant="body2" color={'white'}>
+            v{appConfig.APP_VERSION}
+          </Typography>
         </Stack>
       </Box>
     </Box>
@@ -103,14 +89,18 @@ const Footer: React.FC<Props> = () => {
 
 const TypoTitle = ({ text }) => {
   return (
-    <Typography variant="subtitle1" fontWeight={'bold'}>
+    <Typography variant="subtitle1" fontWeight={'bold'} color={'white'}>
       {!isEmpty(text) ? text : <br />}
     </Typography>
   );
 };
 
 const TypoDescription = ({ text }) => {
-  return <Typography variant="subtitle1">{!isEmpty(text) ? text : <br />}</Typography>;
+  return (
+    <Typography variant="subtitle1" color={'white'}>
+      {!isEmpty(text) ? text : <br />}
+    </Typography>
+  );
 };
 
 type Props = {};

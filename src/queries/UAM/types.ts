@@ -72,7 +72,7 @@ export interface SubmitForgotPasswordPayload {
   password: string;
 }
 export interface ForgotPasswordPayload {
-  email: string;
+  username: string;
 }
 export interface ChangePasswordPayload {
   user: any;

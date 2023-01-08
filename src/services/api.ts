@@ -100,7 +100,7 @@ const create = (baseURL = appConfig.API_URL) => {
 
   const signOut = () => Auth.signOut();
 
-  const forgotPassword = (body: ForgotPasswordPayload) => Auth.forgotPassword(body.email);
+  const forgotPassword = (body: ForgotPasswordPayload) => Auth.forgotPassword(body.username);
 
   const submitForgotPassword = (body: SubmitForgotPasswordPayload) =>
     Auth.forgotPasswordSubmit(body.email, body.token, body.password);

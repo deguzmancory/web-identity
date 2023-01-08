@@ -46,6 +46,19 @@ const configTheme = createTheme({
     fontFamily: ['Arial'].join(','),
   },
   components: {
+    MuiContainer: {
+      defaultProps: {
+        maxWidth: 'md',
+      },
+      styleOverrides: {
+        maxWidthMd: {
+          maxWidth: '960px !important',
+          '@media (min-width): 900px': {
+            maxWidth: '960px !important',
+          },
+        },
+      },
+    },
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
@@ -60,6 +73,7 @@ const configTheme = createTheme({
         h1: {
           fontSize: 32,
           fontWeight: 'bold',
+          color: COLOR_CODE.PRIMARY,
           [breakpoints.down('md')]: {
             fontSize: 32,
           },
@@ -67,6 +81,7 @@ const configTheme = createTheme({
         h2: {
           fontSize: 26,
           fontWeight: 'bold',
+          color: COLOR_CODE.PRIMARY,
           [breakpoints.down('md')]: {
             fontSize: 26,
           },
@@ -74,6 +89,7 @@ const configTheme = createTheme({
         h3: {
           fontSize: 20,
           fontWeight: 'bold',
+          color: COLOR_CODE.PRIMARY,
           [breakpoints.down('md')]: {
             fontSize: 20,
           },
@@ -81,6 +97,7 @@ const configTheme = createTheme({
         h4: {
           fontSize: 18,
           fontWeight: 'bold',
+          color: COLOR_CODE.PRIMARY,
           [breakpoints.down('md')]: {
             fontSize: 18,
           },
@@ -88,19 +105,21 @@ const configTheme = createTheme({
         h5: {
           fontSize: 16,
           fontWeight: 'bold',
-
+          color: COLOR_CODE.PRIMARY,
           [breakpoints.down('md')]: {
             fontSize: 16,
           },
         },
         body1: {
           fontSize: 16,
+          color: COLOR_CODE.PRIMARY,
           [breakpoints.down('md')]: {
             fontSize: 16,
           },
         },
         body2: {
           fontSize: 14,
+          color: COLOR_CODE.PRIMARY,
           [breakpoints.down('md')]: {
             fontSize: 14,
           },
@@ -108,6 +127,7 @@ const configTheme = createTheme({
         subtitle1: {
           // type: small in Figma
           fontSize: 12,
+          color: COLOR_CODE.PRIMARY,
           [breakpoints.down('md')]: {
             fontSize: 12,
           },
