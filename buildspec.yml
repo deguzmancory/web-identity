@@ -31,37 +31,27 @@ env:
   #git-credential-helper: yes
 
 phases:
-  #install:
-  #If you use the Ubuntu standard image 2.0 or later, you must specify runtime-versions.
-  #If you specify runtime-versions and use an image other than Ubuntu standard image 2.0, the build fails.
-  #runtime-versions:
-  # name: version
-  # name: version
-  #commands:
-  # - command
-  # - command
-  #pre_build:
-  #commands:
   pre_build:
     commands:
       - npm install -g yarn
-      - yarn install --prod
+      - yarn --production
   build:
     commands:
-      - echo NODE_ENV=production >> .env
+      - echo NODE_ENV=$NODE_ENV >> .env
+      - echo REACT_APP_VERSION=$npm_package_version >> .env
+
+      - echo REACT_APP_API_URL=$REACT_APP_API_URL >> .env
+      - echo REACT_APP_WEB_URL=$REACT_APP_WEB_URL >> .env
+      - echo REACT_APP_IDENTITY_WEB_URL=$REACT_APP_IDENTITY_WEB_URL >> .env
+
+      - echo REACT_APP_COOKIE_DOMAIN=$REACT_APP_COOKIE_DOMAIN >> .env
+
       - echo REACT_APP_AWS_IDENTITY_REGION=$REACT_APP_AWS_IDENTITY_REGION >> .env
       - echo REACT_APP_AWS_USER_POOL_ID=$REACT_APP_AWS_USER_POOL_ID >> .env
       - echo REACT_APP_AWS_USER_POOL_WEB_CLIENT_ID=$REACT_APP_AWS_USER_POOL_WEB_CLIENT_ID >> .env
       - echo REACT_APP_AWS_USER_POOL_DOMAIN=$REACT_APP_AWS_USER_POOL_DOMAIN >> .env
-      - echo REACT_APP_WEB_URL=$REACT_APP_WEB_URL >> .env
-
-      - echo REACT_APP_COOKIE_DOMAIN=$REACT_APP_COOKIE_DOMAIN >> .env
-      - echo REACT_APP_IDENTITY_WEB_URL=$REACT_APP_IDENTITY_WEB_URL >> .env
-
-      - echo REACT_APP_API_URL=$REACT_APP_API_URL >> .env
       - echo REACT_APP_AWS_S3_WEB_IDENTITY_BUCKET_URL=$REACT_APP_AWS_S3_WEB_IDENTITY_BUCKET_URL >> .env
 
-      - yarn --production
       - yarn build
       - aws s3 sync build $AWS_S3_WEB_URL --acl public-read --delete
       - aws cloudfront create-invalidation --distribution-id $AWS_WEB_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
