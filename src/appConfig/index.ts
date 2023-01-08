@@ -1,7 +1,7 @@
 const configs = {
   WEB_URL: process.env.REACT_APP_WEB_URL,
   API_URL: process.env.REACT_APP_API_URL,
-  ADMIN_WEB_URL: process.env.REACT_APP_ADMIN_WEB_URL,
+  FIS_WEB_URL: process.env.REACT_APP_FIS_WEB_URL,
   NODE_ENV: process.env.NODE_ENV,
   REACT_APP_COOKIE_DOMAIN: process.env.REACT_APP_COOKIE_DOMAIN,
   TIME_ZONE: process.env.REACT_APP_TIME_ZONE,

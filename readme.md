@@ -1,11 +1,12 @@
-# RCUH FIS Modernization - Web-identity
+# RCUH FIS Modernization - web-identity
 
 ## Branch & Domain:
 
-| #   | Branch  | Domain                            |     Others     |
-| --- | :------ | :-------------------------------- | :------------: |
-| 1   | local   | http://rcuh-fis-local.lms.me:7896 |                |
-| 2   | develop | ---                               | default branch |
+| #   | Branch  | Domain                                |     Others     |
+| --- | :------ | :------------------------------------ | :------------: |
+| 1   | local   | http://rcuh-fis-local.lms.me:7896     |                |
+| 2   | local   | http://fis.rcuh-fis-local.lms.me:6636 |    web-fis     |
+| 3   | develop | https://identity.dev.fis.lms.rcuh.com | default branch |
 
 ## Install:
 

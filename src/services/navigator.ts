@@ -51,8 +51,9 @@ const navigateCrossSubdomain = (subdomain, routeName, params = null) => {
 const getSubdomain = () => window.location.hostname.split('.')[0];
 
 export const getNavigateUrl = (url: string) => (url.includes('http') ? url : `https://${url}`);
-const jumpToWebAdmin = (nextPath?: string) => {
-  return window.open(`${getNavigateUrl(appConfig.ADMIN_WEB_URL)}${nextPath}`, '_self');
+
+const jumpToWebFis = (nextPath?: string) => {
+  return window.open(`${getNavigateUrl(appConfig.FIS_WEB_URL)}${nextPath}`, '_self');
 };
 
 export default {
@@ -64,5 +65,5 @@ export default {
   jumpToCrossDomain,
   navigateCrossSubdomain,
   getSubdomain,
-  jumpToWebAdmin,
+  jumpToWebFis,
 };

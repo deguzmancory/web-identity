@@ -8,7 +8,7 @@ import { PATHS } from 'src/appConfig/paths';
 import { useComponentDidMount } from 'src/hooks';
 import { setAuthenticated, setUserName } from 'src/redux/auth/authSlice';
 import { IRootState } from 'src/redux/rootReducer';
-import { Navigator, TenantService, TokenService } from 'src/services';
+import { Navigator, TokenService } from 'src/services';
 
 const AuthContainer: React.FC<Props> = ({
   history,
@@ -70,9 +70,9 @@ const AuthContainer: React.FC<Props> = ({
         .then((user) => {
           // const userAttributes = user.attributes;
           // TODO: Temp fix until employer profile integrated
-          if (TenantService.isAdmin()) {
-            Navigator.jumpToWebAdmin(PATHS.myProfile);
-          }
+          // if (TenantService.isFIS()) {
+          Navigator.jumpToWebFis(PATHS.dashboard);
+          // }
         })
         .catch(() => {
           clearAuth();
