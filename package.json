@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build-app": "react-scripts --max_old_space_size=4096 build",
+    "build-app": "react-scripts --max_old_space_size=3072 build",
     "build-sw": "workbox generateSW workbox-config.js",
     "build": "yarn run build-app && yarn run build-sw",
     "test": "react-scripts test",
