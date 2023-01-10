@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Grid, Stack, Typography } from '@mui/material';
 import { FormikProps, useFormik } from 'formik';
 import { History } from 'history';
@@ -8,18 +7,14 @@ import { Link } from 'react-router-dom';
 import { COLOR_CODE } from 'src/appConfig/constants';
 import { PATHS } from 'src/appConfig/paths';
 import { Button, Form, Input, InputPassword } from 'src/components/common';
-import { SignInPayload, useLogin, useProfile, useResendSignUp } from 'src/queries';
-import { useUserId } from 'src/queries/UAM/useUserId';
-import { hideDialog, showDialog } from 'src/redux/dialog/dialogSlice';
-import { DIALOG_TYPES } from 'src/redux/dialog/type';
+import { useLogin, useProfile } from 'src/queries';
+import { setDuoSigRequest } from 'src/redux/auth/authSlice';
 import { IRootState } from 'src/redux/rootReducer';
 import { ErrorService, Navigator } from 'src/services';
 import { UAMBody } from '../common';
-import EmailConfirmationModal from '../common/EmailConfirmationModal';
 import { initialSignInFormValue, signInFormSchema, SignInFormValue, SIGNIN_KEY } from './helpers';
-import { setDuoSigRequest } from 'src/redux/auth/authSlice';
 
-const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog, onSetDuoSigRequest }) => {
+const Signin: React.FC<Props> = ({ onSetDuoSigRequest }) => {
   const formRef = useRef<FormikProps<SignInFormValue>>(null);
 
   const { login, isSigning } = useLogin({
@@ -31,26 +26,12 @@ const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog, onSetDuoSigReques
         });
       }
     },
-    onError(error, variables, context) {
-      handleError(error, variables);
-    },
-  });
-
-  const { getUserId, isGettingUserId } = useUserId({
-    onSuccess(data, variables, context) {
-      login({ username: data.data.userId, password: variables.password });
-    },
-    onError(error, variables, context) {
-      formRef.current.setErrors({
-        username: '  ',
-        password: ErrorService.MESSAGES.incorrectCredentials,
-      });
+    onError(error) {
+      handleError(error);
     },
   });
 
   const { loading } = useProfile();
-
-  const { resendSignUp } = useResendSignUp();
 
   const handleLogin = (values: SignInFormValue) => {
     const { username, password } = values;
@@ -58,53 +39,19 @@ const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog, onSetDuoSigReques
     login({ username, password });
   };
 
-  const handleConfirmSuccess = (payload: SignInPayload) => {
-    onHideDialog();
-    login(payload);
-  };
-
-  const handleError = (error: AuthError, variables: SignInPayload) => {
-    switch (error.code) {
+  const handleError = (error: AuthError) => {
+    switch (error.code.trim()) {
       case ErrorService.TYPES.NotAuthorizedException:
-        // if (isIdle)
-        return getUserId(variables);
-
-      // return formRef.current.setErrors({
-      //   email: ErrorService.MESSAGES.incorrectAccount,
-      //   password: ErrorService.MESSAGES.incorrectAccount,
-      // });
+        return setErrors({
+          username: ErrorService.MESSAGES.incorrectAccount,
+          password: ErrorService.MESSAGES.incorrectAccount,
+        });
 
       case ErrorService.TYPES.UserNotFoundException:
-        return formRef.current.setErrors({ username: ErrorService.MESSAGES.accountNotExist });
+        return setErrors({ username: ErrorService.MESSAGES.accountNotExist });
 
-      case ErrorService.TYPES.UserNotConfirmedException:
-        resendSignUp(
-          { username: variables.username },
-          {
-            onSuccess(data) {
-              onShowDialog({
-                type: DIALOG_TYPES.CONTENT_DIALOG,
-                data: {
-                  content: (
-                    <EmailConfirmationModal
-                      username={variables.username}
-                      onConfirmSuccess={() =>
-                        handleConfirmSuccess({
-                          username: variables.username,
-                          password: variables.password,
-                        })
-                      }
-                    />
-                  ),
-                  hideTitle: true,
-                },
-              });
-            },
-          }
-        );
-        return;
       case ErrorService.TYPES.UsernameExistsException:
-        return;
+        return setErrors({ username: ErrorService.MESSAGES.incorrectCredentials });
 
       default:
         return ErrorService.handler(error);
@@ -116,7 +63,7 @@ const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog, onSetDuoSigReques
     Navigator.navigate(PATHS.forgotPassword, { email: data.username });
   };
 
-  const { values, errors, touched, getFieldProps, handleSubmit } = useFormik({
+  const { values, errors, touched, getFieldProps, handleSubmit, setErrors } = useFormik({
     initialValues: initialSignInFormValue,
     onSubmit: handleLogin,
     validationSchema: signInFormSchema,
@@ -158,7 +105,7 @@ const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog, onSetDuoSigReques
               variant="default"
               className=""
               isFull
-              isLoading={isSigning || loading || isGettingUserId}
+              isLoading={isSigning || loading}
             >
               Log In
             </Button>
@@ -188,14 +135,9 @@ const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog, onSetDuoSigReques
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps & { history: History };
 
-const mapStateToProps = (state: IRootState) => ({
-  // isSigningIn: state.auth.is,
-  // error: state.auth.error,
-});
+const mapStateToProps = (state: IRootState) => ({});
 
 const mapDispatchToProps = {
-  onShowDialog: showDialog,
-  onHideDialog: hideDialog,
   onSetDuoSigRequest: setDuoSigRequest,
 };
 
