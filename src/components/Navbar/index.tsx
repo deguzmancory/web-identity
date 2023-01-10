@@ -25,17 +25,25 @@ const Navbar: React.FC<Props> = () => {
           </Link>
           <Stack flexDirection={'row'}>
             {navbarItems.map((item) => (
-              <MuiLink
-                {...(item?.url && {
-                  href: item.url,
-                  target: '_blank',
-                  rel: NO_OPENER,
-                })}
+              <Box
+                className={`${clsPrefix}-item`}
+                sx={{
+                  cursor: 'pointer',
+                }}
                 key={item.label}
-                className={`${clsPrefix}-item ${clsPrefix}-link`}
-                underline="none"
+                my={'auto'}
               >
-                {item.label}
+                <MuiLink
+                  {...(item?.url && {
+                    href: item.url,
+                    target: '_blank',
+                    rel: NO_OPENER,
+                  })}
+                  className={` ${clsPrefix}-link`}
+                  underline="none"
+                >
+                  {item.label}
+                </MuiLink>
                 <Box
                   className={cn(`${clsPrefix}-item__sub subItems`, {
                     isLeft: item?.isDisplayLeft,
@@ -43,13 +51,20 @@ const Navbar: React.FC<Props> = () => {
                 >
                   {[
                     item.subItems.map((subItem) => (
-                      <Box className={`subItem`} key={subItem.label}>
+                      <Box
+                        className={`subItem`}
+                        key={subItem.label}
+                        sx={{
+                          cursor: 'pointer',
+                        }}
+                      >
                         <MuiLink
                           {...(subItem?.url && {
                             href: subItem.url,
                             target: '_blank',
                             rel: NO_OPENER,
                           })}
+                          fontWeight="bold"
                           underline="none"
                         >
                           {subItem.label}
@@ -58,7 +73,7 @@ const Navbar: React.FC<Props> = () => {
                     )),
                   ]}
                 </Box>
-              </MuiLink>
+              </Box>
             ))}
           </Stack>
         </Stack>
