@@ -16,22 +16,20 @@ import { IRootState } from 'src/redux/rootReducer';
 import { ErrorService, Navigator } from 'src/services';
 import { UAMBody } from '../common';
 import EmailConfirmationModal from '../common/EmailConfirmationModal';
-import MFAConfirmationModal from '../common/MFAConfirmationModal';
 import { initialSignInFormValue, signInFormSchema, SignInFormValue, SIGNIN_KEY } from './helpers';
+import { setDuoSigRequest } from 'src/redux/auth/authSlice';
 
-const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog }) => {
+const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog, onSetDuoSigRequest }) => {
   const formRef = useRef<FormikProps<SignInFormValue>>(null);
 
   const { login, isSigning } = useLogin({
     onSuccess(data, variables, context) {
-      if (data.challengeName === 'CUSTOM_CHALLENGE')
-        onShowDialog({
-          type: DIALOG_TYPES.CONTENT_DIALOG,
-          data: {
-            content: <MFAConfirmationModal user={data} signInPayload={variables} />,
-            hideTitle: true,
-          },
+      if (data.challengeName === 'CUSTOM_CHALLENGE') {
+        onSetDuoSigRequest({
+          sigRequest: data?.challengeParam?.sig_request,
+          user: data,
         });
+      }
     },
     onError(error, variables, context) {
       handleError(error, variables);
@@ -198,6 +196,7 @@ const mapStateToProps = (state: IRootState) => ({
 const mapDispatchToProps = {
   onShowDialog: showDialog,
   onHideDialog: hideDialog,
+  onSetDuoSigRequest: setDuoSigRequest,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signin);

@@ -108,8 +108,11 @@ const create = (baseURL = appConfig.API_URL) => {
   const changePassword = (body: ChangePasswordPayload) =>
     Auth.changePassword(body.user, body.currentPassword, body.newPassword);
 
-  const confirmSignIn = (body: ConfirmSignInPayload) =>
-    Auth.sendCustomChallengeAnswer(body.user, body.code);
+  const confirmSignIn = (body: ConfirmSignInPayload) => {
+    console.log('body: ', body);
+    console.log('a: ', Auth);
+    return Auth.sendCustomChallengeAnswer(body.user, body.code);
+  };
 
   const confirmPassword = (password: ConfirmPasswordPayload) => {
     return Auth.currentAuthenticatedUser().then((user) =>

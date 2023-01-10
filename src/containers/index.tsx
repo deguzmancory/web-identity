@@ -24,6 +24,7 @@ import { Box } from '@mui/material';
 import Footer from 'src/components/Footer';
 import { useComponentDidMount } from 'src/hooks';
 import ScrollToTop from './StartupContainers/ScrollToTop';
+import DuoContainers from './DuoContainers';
 
 const Signin = React.lazy(() => import('./UAMContainer/Signin'));
 const Signup = React.lazy(() => import('./UAMContainer/Signup'));
@@ -60,6 +61,7 @@ const Routing: React.FC<{ location: Location }> = (props) => {
 
       <ScrollToTop />
       <AuthContainer />
+      <DuoContainers />
       <ContentContainer />
       <LoadingContainer />
       <DialogContainer />

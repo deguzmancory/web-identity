@@ -9,6 +9,10 @@ export interface IAuthState {
     email?: string;
     userType?: string;
   };
+  duo: {
+    sigRequest: string;
+    user: any;
+  };
   isPasswordVerify: boolean;
   isWelcomeScreen: boolean;
 }
@@ -18,6 +22,10 @@ const initialState: IAuthState = {
   user: {
     firstName: 'Tue',
     lastName: 'Truong',
+  },
+  duo: {
+    sigRequest: null,
+    user: null,
   },
   isPasswordVerify: false,
   isWelcomeScreen: false,
@@ -54,12 +62,26 @@ export const authSlice = createSlice({
     ) => {
       state.user = action.payload;
     },
+    setDuoSigRequest: (
+      state,
+      action: PayloadAction<{
+        sigRequest: string;
+        user: any;
+      }>
+    ) => {
+      state.duo = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setAuthenticated, setUserName, setPasswordVerify, setIsWelcomeScreen } =
-  authSlice.actions;
+export const {
+  setAuthenticated,
+  setUserName,
+  setPasswordVerify,
+  setIsWelcomeScreen,
+  setDuoSigRequest,
+} = authSlice.actions;
 
 export const authState = authSlice.getInitialState();
 
