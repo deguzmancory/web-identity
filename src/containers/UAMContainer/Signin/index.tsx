@@ -138,6 +138,7 @@ const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog }) => {
             <Input
               label="Username"
               required
+              autoComplete="username"
               placeholder="Username"
               errorMessage={getErrorMessage(SIGNIN_KEY.USERNAME)}
               {...getFieldProps(SIGNIN_KEY.USERNAME)}
@@ -147,6 +148,7 @@ const Signin: React.FC<Props> = ({ onShowDialog, onHideDialog }) => {
             <InputPassword
               label="Password"
               required
+              autoComplete="current-password"
               placeholder="Password"
               errorMessage={getErrorMessage(SIGNIN_KEY.PASSWORD)}
               {...getFieldProps(SIGNIN_KEY.PASSWORD)}

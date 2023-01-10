@@ -42,12 +42,9 @@ const AuthContainer: React.FC<Props> = ({
     const { event } = payload;
     switch (event) {
       case 'signIn':
-        if (!isWelcomeScreen) {
-          authenticate();
-        }
+        authenticate();
         break;
       case 'signOut':
-        // TokenService.clearToken();
         clearAuth();
         break;
       case 'signIn_failure':
@@ -60,6 +57,7 @@ const AuthContainer: React.FC<Props> = ({
 
   const clearAuth = () => {
     onSetAuth(false);
+    TokenService.clearToken();
     // handleSetStaleProfile();
   };
 

@@ -31,6 +31,7 @@ const Navbar: React.FC<Props> = () => {
                   target: '_blank',
                   rel: NO_OPENER,
                 })}
+                key={item.label}
                 className={`${clsPrefix}-item ${clsPrefix}-link`}
                 underline="none"
               >
@@ -42,7 +43,7 @@ const Navbar: React.FC<Props> = () => {
                 >
                   {[
                     item.subItems.map((subItem) => (
-                      <Box className={`subItem`}>
+                      <Box className={`subItem`} key={subItem.label}>
                         <MuiLink
                           {...(subItem?.url && {
                             href: subItem.url,
