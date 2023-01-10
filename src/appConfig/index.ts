@@ -40,7 +40,7 @@ const AWS_CONFIG = {
   region: process.env.REACT_APP_AWS_IDENTITY_REGION,
   userPoolId: process.env.REACT_APP_AWS_USER_POOL_ID,
   userPoolWebClientId: process.env.REACT_APP_AWS_USER_POOL_WEB_CLIENT_ID,
-  authenticationFlowType: 'USER_PASSWORD_AUTH',
+  authenticationFlowType: 'CUSTOM_AUTH',
   oauth: {
     domain: process.env.REACT_APP_AWS_USER_POOL_DOMAIN,
     scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
