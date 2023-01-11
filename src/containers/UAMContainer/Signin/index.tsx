@@ -72,7 +72,7 @@ const Signin: React.FC<Props> = ({ onSetDuoSigRequest }) => {
 
   const getErrorMessage = (fieldName: SIGNIN_KEY) => {
     // eslint-disable-next-line security/detect-object-injection
-    return touched[fieldName] && errors[fieldName] ? errors.username : '';
+    return touched[fieldName] && errors[fieldName] ? errors[fieldName] : '';
   };
 
   return (

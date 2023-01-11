@@ -6,7 +6,7 @@ import { Image } from 'src/components/common';
 import Header from '../Header';
 import { portalOptions } from './helpers';
 
-const Body: React.FC<Props> = ({ children, bodyWidth = '400px' }) => {
+const Body: React.FC<Props> = ({ children, bodyWidth = '400px', mbHeader }) => {
   return (
     <Box
       sx={{
@@ -83,7 +83,7 @@ const Body: React.FC<Props> = ({ children, bodyWidth = '400px' }) => {
             <Box width={'100%'}>
               <Stack justifyContent={'center'} alignItems="center" minHeight={'100%'}>
                 <Box width={bodyWidth}>
-                  <Header />
+                  <Header mb={mbHeader} />
 
                   {children}
                 </Box>
@@ -99,6 +99,7 @@ const Body: React.FC<Props> = ({ children, bodyWidth = '400px' }) => {
 type Props = {
   children: React.ReactNode;
   bodyWidth?: string;
+  mbHeader?: number;
 };
 
 export default Body;

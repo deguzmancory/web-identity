@@ -103,7 +103,7 @@ const create = (baseURL = appConfig.API_URL) => {
   const forgotPassword = (body: ForgotPasswordPayload) => Auth.forgotPassword(body.username);
 
   const submitForgotPassword = (body: SubmitForgotPasswordPayload) =>
-    Auth.forgotPasswordSubmit(body.email, body.token, body.password);
+    Auth.forgotPasswordSubmit(body.username, body.token, body.password);
 
   const changePassword = (body: ChangePasswordPayload) =>
     Auth.changePassword(body.user, body.currentPassword, body.newPassword);

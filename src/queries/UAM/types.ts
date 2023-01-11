@@ -67,7 +67,7 @@ export interface ResendSignUpPayload {
 }
 
 export interface SubmitForgotPasswordPayload {
-  email: string;
+  username: string;
   token: string;
   password: string;
 }

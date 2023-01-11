@@ -23,7 +23,7 @@
       align-items: flex-start;
     }
 
-    >i {
+    > i {
       font-size: 18px;
       font-weight: 700;
     }
@@ -37,11 +37,7 @@
     }
   }
 
-  // &--show &__item:last-child {
-  //   margin-bottom: 8px;
-  // }
-
   &--show &__item:first-child {
-    margin-top: 16px;
+    margin-top: 0px;
   }
 }

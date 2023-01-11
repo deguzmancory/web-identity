@@ -95,7 +95,7 @@ const ForgotPassword: React.FC<Props> = ({ location, onHideDialog, onShowDialog 
 
   const getErrorMessage = (fieldName: SIGNIN_KEY) => {
     // eslint-disable-next-line security/detect-object-injection
-    return touched[fieldName] && errors[fieldName] ? errors.username : '';
+    return touched[fieldName] && errors[fieldName] ? errors[fieldName] : '';
   };
 
   return (
@@ -103,11 +103,13 @@ const ForgotPassword: React.FC<Props> = ({ location, onHideDialog, onShowDialog 
       <Box mb={1}>
         {userNameSent ? (
           <Typography variant="body1" textAlign={'center'}>
-            {'Password has been successfully reset and a new password has been emailed to you. '}
+            {'Check your email for a link to reset your password.'}
           </Typography>
         ) : (
           <Typography variant="body1" textAlign={'center'}>
-            {'Enter your Username and Submit to have a new password emailed to you:'}
+            {
+              'Please enter the username associated with your account and we’ll send you instructions to reset your password.'
+            }
           </Typography>
         )}
       </Box>
