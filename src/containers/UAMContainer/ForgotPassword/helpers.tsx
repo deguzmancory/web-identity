@@ -9,5 +9,5 @@ export const initialForgotPasswordFormValue = {
 };
 
 export const forgotPasswordFormSchema = Yup.object().shape({
-  username: Yup.string().required(),
+  username: Yup.string().username().required(),
 });
