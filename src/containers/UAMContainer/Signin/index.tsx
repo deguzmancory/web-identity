@@ -1,21 +1,30 @@
 import { Grid, Stack, Typography } from '@mui/material';
 import { FormikProps, useFormik } from 'formik';
-import { History } from 'history';
+import { History, Location } from 'history';
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { COLOR_CODE } from 'src/appConfig/constants';
 import { PATHS } from 'src/appConfig/paths';
 import { Button, Form, Input, InputPassword } from 'src/components/common';
+import { useComponentDidMount } from 'src/hooks';
 import { useLogin, useProfile } from 'src/queries';
 import { setDuoSigRequest } from 'src/redux/auth/authSlice';
 import { IRootState } from 'src/redux/rootReducer';
 import { ErrorService, Navigator } from 'src/services';
+import { getLocationState } from 'src/utils';
 import { UAMBody } from '../common';
 import { initialSignInFormValue, signInFormSchema, SignInFormValue, SIGNIN_KEY } from './helpers';
 
-const Signin: React.FC<Props> = ({ onSetDuoSigRequest }) => {
+const Signin: React.FC<Props> = ({ onSetDuoSigRequest, location }) => {
   const formRef = useRef<FormikProps<SignInFormValue>>(null);
+
+  useComponentDidMount(() => {
+    const state = getLocationState(location);
+    if (state?.username) {
+      setFieldValue(SIGNIN_KEY.USERNAME, state.username);
+    }
+  });
 
   const { login, isSigning } = useLogin({
     onSuccess(data, variables, context) {
@@ -60,15 +69,16 @@ const Signin: React.FC<Props> = ({ onSetDuoSigRequest }) => {
 
   // =========================== FORGOT PASSWORD ===========================
   const handleForgotPassword = (data: SignInFormValue) => {
-    Navigator.navigate(PATHS.forgotPassword, { email: data.username });
+    Navigator.navigate(PATHS.forgotPassword, { username: data.username });
   };
 
-  const { values, errors, touched, getFieldProps, handleSubmit, setErrors } = useFormik({
-    initialValues: initialSignInFormValue,
-    onSubmit: handleLogin,
-    validationSchema: signInFormSchema,
-    innerRef: formRef,
-  });
+  const { values, errors, touched, getFieldProps, handleSubmit, setErrors, setFieldValue } =
+    useFormik({
+      initialValues: initialSignInFormValue,
+      onSubmit: handleLogin,
+      validationSchema: signInFormSchema,
+      innerRef: formRef,
+    });
 
   const getErrorMessage = (fieldName: SIGNIN_KEY) => {
     // eslint-disable-next-line security/detect-object-injection
@@ -133,7 +143,8 @@ const Signin: React.FC<Props> = ({ onSetDuoSigRequest }) => {
   );
 };
 
-type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps & { history: History };
+type Props = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps & { history: History; location: Location<string> };
 
 const mapStateToProps = (state: IRootState) => ({});
 

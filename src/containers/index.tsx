@@ -23,8 +23,8 @@ import UploadProgressContainer from './StartupContainers/UploadProgressContainer
 import { Box } from '@mui/material';
 import Footer from 'src/components/Footer';
 import { useComponentDidMount } from 'src/hooks';
-import ScrollToTop from './StartupContainers/ScrollToTop';
 import DuoContainers from './DuoContainers';
+import ScrollToTop from './StartupContainers/ScrollToTop';
 
 const Signin = React.lazy(() => import('./UAMContainer/Signin'));
 const Signup = React.lazy(() => import('./UAMContainer/Signup'));

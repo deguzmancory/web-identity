@@ -36,7 +36,7 @@ const ForgotPassword: React.FC<Props> = ({ location, onHideDialog, onShowDialog 
   useComponentDidMount(() => {
     const state = getLocationState(location);
     if (state?.username) {
-      formRef.current.setValues({ username: state.username as string });
+      setFieldValue(SIGNIN_KEY.USERNAME, state.username);
     }
   });
 
@@ -86,7 +86,7 @@ const ForgotPassword: React.FC<Props> = ({ location, onHideDialog, onShowDialog 
     forgotPassword({ username: userNameSent });
   };
 
-  const { errors, touched, getFieldProps, handleSubmit } = useFormik({
+  const { errors, touched, getFieldProps, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialForgotPasswordFormValue,
     onSubmit: handleSubmitForgotPassword,
     validationSchema: forgotPasswordFormSchema,
@@ -103,7 +103,7 @@ const ForgotPassword: React.FC<Props> = ({ location, onHideDialog, onShowDialog 
       <Box mb={1}>
         {userNameSent ? (
           <Typography variant="body1" textAlign={'center'}>
-            {'Check your email for a link to reset your password.'}
+            {'Please check your email for a link to reset your password.'}
           </Typography>
         ) : (
           <Typography variant="body1" textAlign={'center'}>

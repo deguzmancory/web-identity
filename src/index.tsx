@@ -1,8 +1,8 @@
 // import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Amplify from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import { createRoot } from 'react-dom/client';
 
 import * as workbox from './workbox';
@@ -16,7 +16,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { ONE_HOUR } from './appConfig/constants';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { theme } from './appConfig/muiTheme';
 import { Suspense } from 'react';
 import { LoadingCommon } from './components/common';
@@ -38,8 +38,8 @@ Amplify.configure(appConfig.AWS_CONFIG);
 const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
+  <MuiThemeProvider theme={theme}>
+    <ReduxProvider store={store}>
       <QueryClientProvider client={queryClient}>
         <Suspense fallback={<LoadingCommon />}>
           <ConnectedRouter history={history}>
@@ -50,8 +50,8 @@ root.render(
         </Suspense>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    </Provider>
-  </ThemeProvider>
+    </ReduxProvider>
+  </MuiThemeProvider>
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -20,6 +20,7 @@ const PasswordUpdated = React.lazy(() => import('./passwordUpdated'));
 
 const ResetPassword: React.FC<Props> = ({ location }) => {
   const query = new URLSearchParams(location.search);
+  const username = query.get(RESET_PASSWORD_KEY.USERNAME);
 
   React.useEffect(() => {
     // Check for query params "username" and "token". Should be included in link sent to email from forgot password submission.
@@ -52,7 +53,7 @@ const ResetPassword: React.FC<Props> = ({ location }) => {
       return;
     } else {
       const body = {
-        username: `${query.get(RESET_PASSWORD_KEY.USERNAME)}`,
+        username: username,
         password: password,
         token: query.get(RESET_PASSWORD_KEY.TOKEN),
       };
@@ -62,7 +63,7 @@ const ResetPassword: React.FC<Props> = ({ location }) => {
 
   // =========================== FORGOT PASSWORD ===========================
   const handleBackToLogin = () => {
-    Navigator.navigate(PATHS.signIn);
+    Navigator.navigate(PATHS.signIn, { username: username });
   };
 
   const { values, errors, touched, getFieldProps, handleSubmit, setErrors } = useFormik({
@@ -83,7 +84,7 @@ const ResetPassword: React.FC<Props> = ({ location }) => {
       ) : (
         <>
           <Typography variant="h5" textAlign={'center'} mb={2}>
-            Change Password for {query.get(RESET_PASSWORD_KEY.USERNAME)}
+            Change Password for {username}
           </Typography>
 
           <Form onSubmit={handleSubmit} autoComplete="off" className="ctn-uam__form">
@@ -123,7 +124,7 @@ const ResetPassword: React.FC<Props> = ({ location }) => {
               <Grid.Item variant="is-full">
                 <Stack flexDirection={'row'} justifyContent={'center'}>
                   <Button variant="link" onClick={() => handleBackToLogin()}>
-                    Back to Login
+                    Return to Login Page
                   </Button>
                 </Stack>
                 <Stack flexDirection={'row'} justifyContent={'center'} mt={2}>
