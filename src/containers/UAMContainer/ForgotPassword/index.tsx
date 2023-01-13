@@ -103,13 +103,11 @@ const ForgotPassword: React.FC<Props> = ({ location, onHideDialog, onShowDialog 
       <Box mb={1}>
         {userNameSent ? (
           <Typography variant="body1" textAlign={'center'}>
-            {'Please check your email for a link to reset your password.'}
+            Please check your email for a link to reset your password.
           </Typography>
         ) : (
           <Typography variant="body1" textAlign={'center'}>
-            {
-              'Please enter the username associated with your account and we’ll send you instructions to reset your password.'
-            }
+            Enter your Username and we’ll send you instructions to reset your password.
           </Typography>
         )}
       </Box>
@@ -129,7 +127,7 @@ const ForgotPassword: React.FC<Props> = ({ location, onHideDialog, onShowDialog 
 
             <Grid item xs={12}>
               <Button type="submit" isLoading={isLoading} isFull>
-                Continue
+                Send Reset Link
               </Button>
             </Grid>
           </Grid>
