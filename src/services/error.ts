@@ -23,7 +23,7 @@ const MESSAGES = {
   invalidInformation: 'The provided information is invalid. Please try again.',
   notTrimmable: 'This field must have no whitespace at the beginning and end.',
   pleaseUseEnglishAlphabetForInput: 'Please use English alphabet for input.',
-  inValidUsername: 'Invalid format username. Please remove space',
+  inValidUsername: 'Please use only letters, numbers (0-9), underscore (_), dot (.), hyphen (-).',
 };
 
 const handler = (error: AuthError | Error) => {
