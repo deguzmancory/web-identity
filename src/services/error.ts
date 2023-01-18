@@ -32,6 +32,9 @@ const handler = (error: AuthError | Error) => {
     return Toastify.error(
       'The code you entered is incorrect more than 5 times. Please try after few minutes or resend email to receive the new code.'
     );
+  }
+  if (error?.message.includes('Username/client id combination not found.')) {
+    return Toastify.error('Username does not exist');
   } else {
     Toastify.error(error?.message || MESSAGES.unknown);
   }
