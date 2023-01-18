@@ -12,3 +12,12 @@
   border-radius: 8px;
   overflow: hidden;
 }
+
+.duo-wrapper {
+  &__close {
+    position: fixed !important;
+    left: calc(50% + 280px);
+    transform: translate(-50%, -180px);
+    z-index: 9999;
+  }
+}
