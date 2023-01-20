@@ -1,26 +1,16 @@
-import { connect } from 'react-redux';
+import { Backdrop, CircularProgress } from '@mui/material';
+import { COLOR_CODE } from 'src/appConfig/constants';
 
-import { IRootState } from 'src/redux/rootReducer';
 import './styles.scss';
 
-const LoadingContainer: React.FC<Props> = ({ isLoading }) => {
-  if (!isLoading) return null;
-
-  return null;
-  // return (
-  //   <View className="ctn-loading">
-  //     <Loading loadingStyle={4} />
-  //   </View>
-  // );
+const LoadingContainer: React.FC<Props> = () => {
+  return (
+    <Backdrop sx={{ color: COLOR_CODE.WHITE, zIndex: 9999 }} open={true} onClick={() => {}}>
+      <CircularProgress color="inherit" />
+    </Backdrop>
+  );
 };
 
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps & {
-    isLoading?: boolean;
-  };
+type Props = {};
 
-const mapStateToProps = (state: IRootState) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoadingContainer);
+export default LoadingContainer;

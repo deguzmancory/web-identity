@@ -1,5 +1,5 @@
 import { Location } from 'history';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, RouteProps, Switch, useHistory } from 'react-router-dom';
 
@@ -43,18 +43,20 @@ const Routing: React.FC<{ location: Location }> = (props) => {
   return (
     <Box pt={8}>
       <Navbar />
-      <Switch location={props.location}>
-        <Route path={PATHS.root} render={() => <Redirect to={PATHS.signIn} />} exact />
-        <CustomRoute path={PATHS.signIn} component={Signin} />
-        <CustomRoute path={PATHS.signUp} component={Signup} />
-        <CustomRoute path={PATHS.forgotPassword} component={ForgotPassword} />
-        <CustomRoute path={PATHS.resetPassword} component={ResetPassword} />
-        <CustomRoute path={PATHS.welcome} component={Welcome} />
+      <Suspense fallback={<LoadingContainer />}>
+        <Switch location={props.location}>
+          <Route path={PATHS.root} render={() => <Redirect to={PATHS.signIn} />} exact />
+          <CustomRoute path={PATHS.signIn} component={Signin} />
+          <CustomRoute path={PATHS.signUp} component={Signup} />
+          <CustomRoute path={PATHS.forgotPassword} component={ForgotPassword} />
+          <CustomRoute path={PATHS.resetPassword} component={ResetPassword} />
+          <CustomRoute path={PATHS.welcome} component={Welcome} />
 
-        <Route path={PATHS.dev} component={Dev} />
-        <CustomRoute path={PATHS.dev} component={Dev} />
-        <Route component={NotFound} />
-      </Switch>
+          <Route path={PATHS.dev} component={Dev} />
+          <CustomRoute path={PATHS.dev} component={Dev} />
+          <Route component={NotFound} />
+        </Switch>
+      </Suspense>
 
       <Sidebar />
       <Footer />
@@ -63,7 +65,6 @@ const Routing: React.FC<{ location: Location }> = (props) => {
       <AuthContainer />
       <DuoContainers />
       <ContentContainer />
-      <LoadingContainer />
       <DialogContainer />
       <ToastContainer />
       <ResponsiveContainer />

@@ -19,7 +19,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { theme } from './appConfig/muiTheme';
 import { Suspense } from 'react';
-import { LoadingCommon } from './components/common';
+import LoadingContainer from './containers/StartupContainers/LoadingContainer';
 const { store, history } = createStore();
 
 const queryClient = new QueryClient({
@@ -41,7 +41,7 @@ root.render(
   <MuiThemeProvider theme={theme}>
     <ReduxProvider store={store}>
       <QueryClientProvider client={queryClient}>
-        <Suspense fallback={<LoadingCommon />}>
+        <Suspense fallback={<LoadingContainer />}>
           <ConnectedRouter history={history}>
             <Router>
               <Route component={MainAppNavigator} />
