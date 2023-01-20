@@ -10,13 +10,15 @@ import { Button, Form, Input, InputPassword } from 'src/components/common';
 import { useComponentDidMount } from 'src/hooks';
 import { useLogin, useProfile } from 'src/queries';
 import { setDuoSigRequest } from 'src/redux/auth/authSlice';
+import { hideDialog, showDialog } from 'src/redux/dialog/dialogSlice';
+import { DIALOG_TYPES } from 'src/redux/dialog/type';
 import { IRootState } from 'src/redux/rootReducer';
 import { ErrorService, Navigator } from 'src/services';
 import { getLocationState } from 'src/utils';
 import { UAMBody } from '../common';
 import { initialSignInFormValue, signInFormSchema, SignInFormValue, SIGNIN_KEY } from './helpers';
 
-const Signin: React.FC<Props> = ({ onSetDuoSigRequest, location }) => {
+const Signin: React.FC<Props> = ({ onSetDuoSigRequest, location, onShowDialog, onHideDialog }) => {
   const formRef = useRef<FormikProps<SignInFormValue>>(null);
 
   useComponentDidMount(() => {
@@ -49,7 +51,28 @@ const Signin: React.FC<Props> = ({ onSetDuoSigRequest, location }) => {
   };
 
   const handleError = (error: AuthError) => {
-    switch (error.code.trim()) {
+    switch (error.message) {
+      case 'User is disabled.':
+        onShowDialog({
+          type: DIALOG_TYPES.OK_DIALOG,
+          data: {
+            title: `Error`,
+            content: `Your account is deactivated. Please contact to your administrator to reactivate your account.`,
+            okText: 'Ok',
+            onOk: () => {
+              onHideDialog();
+            },
+            onCancel: () => {
+              onHideDialog();
+            },
+          },
+        });
+        return;
+
+      default:
+        break;
+    }
+    switch (error.code) {
       case ErrorService.TYPES.NotAuthorizedException:
         return setErrors({
           username: ErrorService.MESSAGES.incorrectAccount,
@@ -150,6 +173,8 @@ const mapStateToProps = (state: IRootState) => ({});
 
 const mapDispatchToProps = {
   onSetDuoSigRequest: setDuoSigRequest,
+  onShowDialog: showDialog,
+  onHideDialog: hideDialog,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signin);
