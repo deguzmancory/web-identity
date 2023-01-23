@@ -6,6 +6,7 @@ export * from './useConfirmSignIn';
 export * from './useConfirmSignUp';
 export * from './useForgotPassword';
 export * from './useLogin';
+export * from './useLoginWithoutMFA';
 export * from './useLogout';
 export * from './useResendSignUp';
 export * from './useSignup';

@@ -42,7 +42,9 @@ const AuthContainer: React.FC<Props> = ({
     const { event } = payload;
     switch (event) {
       case 'signIn':
-        authenticate();
+        if (!isWelcomeScreen) {
+          authenticate();
+        }
         break;
       case 'signOut':
         clearAuth();

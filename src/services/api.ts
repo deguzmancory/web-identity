@@ -17,7 +17,7 @@ import {
   SignUpPayload,
   SubmitForgotPasswordPayload,
 } from 'src/queries/UAM/types';
-import { newCancelToken, stringify } from 'src/utils';
+import { handleShowErrorMsg, newCancelToken, stringify } from 'src/utils';
 import { TokenService } from '.';
 
 axios.defaults.withCredentials = true;
@@ -105,12 +105,15 @@ const create = (baseURL = appConfig.API_URL) => {
   const submitForgotPassword = (body: SubmitForgotPasswordPayload) =>
     Auth.forgotPasswordSubmit(body.username, body.token, body.password);
 
-  const changePassword = (body: ChangePasswordPayload) =>
-    Auth.changePassword(body.user, body.currentPassword, body.newPassword);
+  const changePassword = async (body: ChangePasswordPayload) => {
+    return await Auth.currentAuthenticatedUser()
+      .then((user) => {
+        return Auth.changePassword(user, body.currentPassword, body.newPassword);
+      })
+      .catch((error) => handleShowErrorMsg(error));
+  };
 
   const confirmSignIn = (body: ConfirmSignInPayload) => {
-    console.log('body: ', body);
-    console.log('a: ', Auth);
     return Auth.sendCustomChallengeAnswer(body.user, body.code);
   };
 

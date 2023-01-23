@@ -14,24 +14,13 @@ import { isEmpty } from 'src/validations';
 import { Location } from 'history';
 // import { AccountStatus, StatementStatus } from 'src/redux/account/types';
 import _ from 'lodash';
+import { ErrorService, Toastify } from 'src/services';
 
 export const handleGetError = (touched, errors, prefix) =>
   _.get(touched, prefix) ? _.get(errors, prefix) : '';
 
 export const waiter = (time: number = 100) =>
   new Promise<Array<any>>((res) => setTimeout(() => res([]), time));
-// import vnLocale from 'dayjs/locale/vi';
-// var updateLocale = require('dayjs/plugin/updateLocale');
-// export const updateVnLocale = () => {
-//   dayjs.extend(updateLocale);
-//   const newLocale = {
-//     ...vnLocale,
-//     meridiem: (hour, minute, isLowercase) => {
-//       return hour >= 12 ? 'CH' : 'SA';
-//     },
-//   };
-//   dayjs?.['updateLocale']('vi', newLocale);
-// };
 
 export function newCancelToken(timeout = appConfig.CONNECTION_TIMEOUT) {
   const source = CancelToken.source();
@@ -269,4 +258,16 @@ export const removeSpecialCharacterFromString = (value: string) => {
 export const formatStringToNumber = (value: string) => {
   if (isEmpty(value)) return null;
   return Number(value);
+};
+
+export const handleShowErrorMsg = (error: Error, prefix: string = '') => {
+  let errorMessage = ErrorService.MESSAGES.unknown;
+  if (!isEmpty(error)) {
+    if (typeof error?.message === 'string') {
+      errorMessage = error?.message;
+    } else {
+      errorMessage = error?.message[0];
+    }
+    Toastify.error(`${!isEmpty(prefix) ? `${prefix}: ` : ''}${errorMessage}`);
+  }
 };

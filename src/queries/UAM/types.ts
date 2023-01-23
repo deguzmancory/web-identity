@@ -75,7 +75,6 @@ export interface ForgotPasswordPayload {
   username: string;
 }
 export interface ChangePasswordPayload {
-  user: any;
   currentPassword: string;
   newPassword: string;
 }
