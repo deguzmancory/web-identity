@@ -2,12 +2,16 @@ import { Stack, Typography } from '@mui/material';
 import { FormikHelpers, useFormik } from 'formik';
 import { History, Location } from 'history';
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { COLOR_CODE } from 'src/appConfig/constants';
 import { PATHS } from 'src/appConfig/paths';
 import { Button, Form, Grid, InputPassword, ValidatePassword } from 'src/components/common';
-import { useSubmitForgotPassword } from 'src/queries';
-import { ErrorService, Navigator } from 'src/services';
+import { useSubmitForgotPassword, useUpdateUserLastPasswordChanged } from 'src/queries';
+import { hideDialog, showDialog } from 'src/redux/dialog/dialogSlice';
+import { DIALOG_TYPES } from 'src/redux/dialog/type';
+import { Navigator } from 'src/services';
+import { handleShowErrorMsg } from 'src/utils';
 import { UAMBody } from '../common';
 import {
   initialResetPasswordFormValue,
@@ -18,7 +22,7 @@ import {
 
 const PasswordUpdated = React.lazy(() => import('./passwordUpdated'));
 
-const ResetPassword: React.FC<Props> = ({ location }) => {
+const ResetPassword: React.FC<Props> = ({ location, onShowDialog, onHideDialog }) => {
   const query = new URLSearchParams(location.search);
   const username = query.get(RESET_PASSWORD_KEY.USERNAME);
 
@@ -32,12 +36,34 @@ const ResetPassword: React.FC<Props> = ({ location }) => {
 
   const [isPasswordUpdated, setIsPasswordUpdated] = React.useState(false);
 
+  const { updateUserLastPasswordChanged } = useUpdateUserLastPasswordChanged();
+
   const { submitForgotPassword, isLoading } = useSubmitForgotPassword({
     onSuccess(data, variables, context) {
       setIsPasswordUpdated(true);
+      updateUserLastPasswordChanged({ username });
     },
     onError(error, variables, context) {
-      ErrorService.handler(error);
+      if (error.message.includes('Invalid code provided, please request a code again')) {
+        onShowDialog({
+          type: DIALOG_TYPES.OK_DIALOG,
+          data: {
+            title: `Error`,
+            content: `The link above is valid for 60 minutes after you receive this email. Please submit send reset password link again!`,
+            okText: 'Ok',
+            onOk: () => {
+              onHideDialog();
+            },
+            onCancel: () => {
+              onHideDialog();
+            },
+          },
+        });
+        Navigator.navigate(PATHS.forgotPassword, { username: username });
+        return;
+      } else {
+        handleShowErrorMsg(error);
+      }
     },
   });
 
@@ -146,6 +172,11 @@ const ResetPassword: React.FC<Props> = ({ location }) => {
   );
 };
 
-type Props = { history: History; location: Location<string> };
+type Props = typeof mapDispatchToProps & { history: History; location: Location<string> };
 
-export default ResetPassword;
+const mapDispatchToProps = {
+  onShowDialog: showDialog,
+  onHideDialog: hideDialog,
+};
+
+export default connect(undefined, mapDispatchToProps)(ResetPassword);

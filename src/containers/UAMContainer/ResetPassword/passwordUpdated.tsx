@@ -15,9 +15,6 @@ const PasswordUpdated: React.FC<Props> = ({ onBackToLogin }) => {
           </Typography>
         </Stack>
       </Grid>
-      {/* <Grid item xs={12}>
-        
-      </Grid> */}
       <Grid item xs={12}>
         <Button isFull onClick={() => onBackToLogin()}>
           Login
