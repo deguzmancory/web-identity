@@ -1,7 +1,7 @@
 {
-  "name": "rcuh-fis-modernization",
-  "version": "0.1.0",
-  "description": "RCUH FIS Modernization",
+  "name": "web-identity-rcuh-fis-modernization",
+  "version": "0.1.1",
+  "description": "Web-identity RCUH FIS Modernization",
   "private": true,
   "husky": {
     "hooks": {

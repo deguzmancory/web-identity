@@ -9,6 +9,8 @@ const configs = {
   AWS_S3_WEB_LOGIN_BUCKET_URL: process.env.REACT_APP_AWS_S3_WEB_LOGIN_BUCKET_URL,
   APP_VERSION: process.env.REACT_APP_VERSION || '0.1.0',
   DUO_HOST_ID: process.env.REACT_APP_DUO_HOST_ID,
+  API_KEY: process.env.REACT_APP_API_KEY,
+  S3_ACCOUNT_SERVICE_ASSETS_URL: process.env.REACT_APP_AWS_S3_ACCOUNT_SERVICE_ASSETS_URL,
 };
 
 const googleServices = {
