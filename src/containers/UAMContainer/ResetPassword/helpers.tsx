@@ -20,6 +20,6 @@ export const initialResetPasswordFormValue: ResetPasswordFormValue = {
 };
 
 export const resetPasswordFormSchema = Yup.object().shape({
-  password: Yup.string().required(),
+  password: Yup.string().required().password(),
   confirmPassword: Yup.string().required(),
 });
