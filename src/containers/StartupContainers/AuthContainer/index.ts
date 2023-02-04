@@ -3,7 +3,7 @@ import { Auth, Hub } from 'aws-amplify';
 import { History } from 'history';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useLocation, withRouter } from 'react-router-dom';
 import { PATHS } from 'src/appConfig/paths';
 import { useComponentDidMount } from 'src/hooks';
 import { setAuthenticated, setUserName } from 'src/redux/auth/authSlice';
@@ -17,16 +17,17 @@ const AuthContainer: React.FC<Props> = ({
   onSetUserName,
   isWelcomeScreen,
 }) => {
-  // =========================== Didmount ===========================
+  const location = useLocation();
+  const pathname = location.pathname;
 
+  const isWelcomeRoute = pathname.includes(PATHS.welcome);
+  // =========================== Didmount ===========================
   useEffect(() => {
     Hub.listen('auth', authLogin);
-    // 1.call this first when mount because history listen fire when route changed
-    // authenticate();
     return () => {
       Hub.remove('auth', authLogin);
     };
-  }, [isAuthenticated, isWelcomeScreen]);
+  }, [isAuthenticated]);
 
   useComponentDidMount(async () => {
     try {
@@ -60,7 +61,6 @@ const AuthContainer: React.FC<Props> = ({
   const clearAuth = () => {
     onSetAuth(false);
     TokenService.clearToken();
-    // handleSetStaleProfile();
   };
 
   const authenticate = () => {
@@ -68,11 +68,11 @@ const AuthContainer: React.FC<Props> = ({
       // 2. Get current user
       Auth.currentAuthenticatedUser()
         .then((user) => {
-          // const userAttributes = user.attributes;
-          // TODO: Temp fix until employer profile integrated
-          // if (TenantService.isFIS()) {
-          Navigator.jumpToWebFis(PATHS.dashboard);
-          // }
+          if (isWelcomeRoute) {
+            clearAuth();
+          } else {
+            Navigator.jumpToWebFis(PATHS.dashboard);
+          }
         })
         .catch(() => {
           clearAuth();
