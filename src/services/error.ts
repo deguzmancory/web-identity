@@ -12,7 +12,7 @@ const MESSAGES = {
   incorrectAccount: 'Incorrect username or password',
   incorrectCredentials: 'Incorrect login credentials. Please try again.',
   incorrectPassword: 'Incorrect password.', // pragma: allowlist secret
-  onlyLetter: 'Only alphabets are allowed for this field.',
+  onlyLetter: 'Only English alphabets are allowed for this field.',
   SSNMessage: 'SSN already exists, please enter again.',
   alphanumeric: 'Alphanumeric characters',
   businessIdLength: '3-25 characters',
@@ -21,7 +21,7 @@ const MESSAGES = {
   invalidRoutingNumber: 'Invalid routing number',
   onlyLetterAndNumber: 'Only alphabets or numeric are allowed for this field.',
   invalidInformation: 'The provided information is invalid. Please try again.',
-  notTrimmable: 'This field must have no whitespace at the beginning and end.',
+  notTrimmable: 'Space character is not allowed at the beginning and end.',
   pleaseUseEnglishAlphabetForInput: 'Please use English alphabet for input.',
   inValidUsername: 'Please use only letters, numbers (0-9), underscore (_), dot (.), hyphen (-).',
 };
