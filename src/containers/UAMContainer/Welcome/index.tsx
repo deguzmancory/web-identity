@@ -8,8 +8,9 @@ import { Button, Form, Grid, Input, InputPassword, ValidatePassword } from 'src/
 import { useComponentWillUnmount } from 'src/hooks';
 import { ChangePasswordPayload, useChangePassword, useLoginWithoutMFA } from 'src/queries';
 import { setIsWelcomeScreen } from 'src/redux/auth/authSlice';
-import { ErrorService, Navigator } from 'src/services';
-import { handleShowErrorMsg } from 'src/utils';
+import { hideDialog, showDialog } from 'src/redux/dialog/dialogSlice';
+import { DIALOG_TYPES } from 'src/redux/dialog/type';
+import { ErrorService, Navigator, Toastify } from 'src/services';
 import { UAMBody } from '../common';
 import {
   initialWelcomeFormValue,
@@ -20,7 +21,7 @@ import {
 
 const PasswordUpdated = React.lazy(() => import('./passwordUpdated'));
 
-const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen }) => {
+const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen, onShowDialog, onHideDialog }) => {
   const query = new URLSearchParams(location.search);
   const username = query.get(WELCOME_KEY.USERNAME);
   const token = query.get(WELCOME_KEY.TOKEN);
@@ -29,8 +30,10 @@ const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen }) => {
     onSetWelcomeScreen(true);
     // Check for query params "username" and "token". Should be included in link sent to email from forgot password submission.
     if (!query.has(WELCOME_KEY.USERNAME) || !query.has(WELCOME_KEY.TOKEN)) {
-      Navigator.navigate(PATHS.signIn);
+      Navigator.navigate(PATHS.forgotPassword);
+      handleShowToastPasswordExpired();
     } else {
+      setIsSigning(true);
       login({ username, password: token });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,12 +41,41 @@ const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen }) => {
 
   useComponentWillUnmount(() => onSetWelcomeScreen(false));
 
+  const [isSigning, setIsSigning] = React.useState(false);
+
   const { login } = useLoginWithoutMFA({
-    onSuccess(data, variables, context) {},
+    onSuccess(data, variables, context) {
+      setIsSigning(false);
+    },
     onError(error, variables, context) {
-      handleShowErrorMsg(error);
+      if (error && error.message.includes('User is disabled')) {
+        onShowDialog({
+          type: DIALOG_TYPES.OK_DIALOG,
+          data: {
+            title: `Error`,
+            content: `Your account is deactivated. Please contact to your administrator to reactivate your account.`,
+            okText: 'Ok',
+            onOk: () => {
+              onHideDialog();
+            },
+            onCancel: () => {
+              onHideDialog();
+            },
+          },
+        });
+        Navigator.navigate(PATHS.signIn);
+      } else {
+        handleShowToastPasswordExpired();
+        Navigator.navigate(PATHS.forgotPassword, { username: username });
+      }
     },
   });
+
+  const handleShowToastPasswordExpired = () => {
+    Toastify.error(
+      'The link to set up your account has expired. Please try again by resetting password.'
+    );
+  };
 
   const [isPasswordUpdated, setIsPasswordUpdated] = React.useState(false);
 
@@ -112,6 +144,7 @@ const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen }) => {
                   placeholder="New Password"
                   errorMessage={getErrorMessage(WELCOME_KEY.PASSWORD)}
                   {...getFieldProps(WELCOME_KEY.PASSWORD)}
+                  disabled={isSigning}
                 />
               </Grid.Item>
 
@@ -129,10 +162,17 @@ const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen }) => {
                   placeholder="Confirm Password"
                   errorMessage={getErrorMessage(WELCOME_KEY.CONFIRM_PASSWORD)}
                   {...getFieldProps(WELCOME_KEY.CONFIRM_PASSWORD)}
+                  disabled={isSigning}
                 />
               </Grid.Item>
               <Grid.Item variant="is-full">
-                <Button type="submit" variant="default" className="" isFull isLoading={isLoading}>
+                <Button
+                  type="submit"
+                  variant="default"
+                  className=""
+                  isFull
+                  isLoading={isLoading || isSigning}
+                >
                   Confirm
                 </Button>
               </Grid.Item>
@@ -155,6 +195,8 @@ type Props = typeof mapDispatchToProps & { history: History; location: Location<
 
 const mapDispatchToProps = {
   onSetWelcomeScreen: setIsWelcomeScreen,
+  onShowDialog: showDialog,
+  onHideDialog: hideDialog,
 };
 
 export default connect(undefined, mapDispatchToProps)(Welcome);

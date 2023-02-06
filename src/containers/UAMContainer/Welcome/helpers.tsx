@@ -18,6 +18,6 @@ export const initialWelcomeFormValue: WelcomeFormValue = {
 };
 
 export const welcomeFormSchema = Yup.object().shape({
-  password: Yup.string().required(),
+  password: Yup.string().password().required(),
   confirmPassword: Yup.string().required(),
 });
