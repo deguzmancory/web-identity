@@ -6,7 +6,13 @@ import { connect } from 'react-redux';
 import { PATHS } from 'src/appConfig/paths';
 import { Button, Form, Grid, Input, InputPassword, ValidatePassword } from 'src/components/common';
 import { useComponentWillUnmount } from 'src/hooks';
-import { ChangePasswordPayload, useChangePassword, useLoginWithoutMFA } from 'src/queries';
+import {
+  ChangePasswordPayload,
+  useChangePassword,
+  useLoginWithoutMFA,
+  useLogout,
+  useUpdateUserLastPasswordChanged,
+} from 'src/queries';
 import { setIsWelcomeScreen } from 'src/redux/auth/authSlice';
 import { hideDialog, showDialog } from 'src/redux/dialog/dialogSlice';
 import { DIALOG_TYPES } from 'src/redux/dialog/type';
@@ -78,10 +84,13 @@ const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen, onShowDialog, 
   };
 
   const [isPasswordUpdated, setIsPasswordUpdated] = React.useState(false);
-
+  const { updateUserLastPasswordChanged } = useUpdateUserLastPasswordChanged();
+  const { logout, isLoggingOut } = useLogout();
   const { changePassword, isLoading } = useChangePassword({
     onSuccess(data, variables, context) {
       setIsPasswordUpdated(true);
+      updateUserLastPasswordChanged({ username: username });
+      logout();
     },
     onError(error, variables, context) {
       ErrorService.handler(error);
@@ -104,7 +113,6 @@ const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen, onShowDialog, 
     }
   };
 
-  // =========================== FORGOT PASSWORD ===========================
   const handleBackToLogin = () => {
     Navigator.navigate(PATHS.signIn, { username: username });
   };
@@ -171,7 +179,7 @@ const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen, onShowDialog, 
                   variant="default"
                   className=""
                   isFull
-                  isLoading={isLoading || isSigning}
+                  isLoading={isLoading || isSigning || isLoggingOut}
                 >
                   Confirm
                 </Button>
