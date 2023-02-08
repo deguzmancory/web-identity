@@ -3,7 +3,7 @@ import { Auth, Hub } from 'aws-amplify';
 import { History } from 'history';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useLocation, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { PATHS } from 'src/appConfig/paths';
 import { useComponentDidMount } from 'src/hooks';
 import { setAuthenticated, setUserName } from 'src/redux/auth/authSlice';
@@ -17,10 +17,6 @@ const AuthContainer: React.FC<Props> = ({
   onSetUserName,
   isWelcomeScreen,
 }) => {
-  const location = useLocation();
-  const pathname = location.pathname;
-
-  const isWelcomeRoute = pathname.includes(PATHS.welcome);
   // =========================== Didmount ===========================
   useEffect(() => {
     Hub.listen('auth', authLogin);
@@ -68,11 +64,7 @@ const AuthContainer: React.FC<Props> = ({
       // 2. Get current user
       Auth.currentAuthenticatedUser()
         .then((user) => {
-          if (isWelcomeRoute) {
-            clearAuth();
-          } else {
-            Navigator.jumpToWebFis(PATHS.dashboard);
-          }
+          Navigator.jumpToWebFis(PATHS.dashboard);
         })
         .catch(() => {
           clearAuth();

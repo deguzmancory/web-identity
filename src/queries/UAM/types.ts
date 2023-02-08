@@ -79,7 +79,9 @@ export interface ChangePasswordPayload {
   newPassword: string;
 }
 export interface ConfirmPasswordPayload {
-  password: string;
+  username: string;
+  newPassword: string;
+  token: string;
 }
 
 export interface ConfirmSignInPayload {

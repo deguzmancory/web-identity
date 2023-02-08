@@ -118,13 +118,8 @@ const create = (baseURL = appConfig.API_URL) => {
     return Auth.sendCustomChallengeAnswer(body.user, body.code);
   };
 
-  const confirmPassword = (password: ConfirmPasswordPayload) => {
-    return Auth.currentAuthenticatedUser().then((user) =>
-      Auth.signIn({
-        username: user.username,
-        password: password.password,
-      })
-    );
+  const confirmPassword = (body: ConfirmPasswordPayload) => {
+    return api.post(`/account-svc/v1/users/confirm-password`, body, newCancelToken());
   };
 
   const completeNewPassword = (body: CompleteNewPasswordPayload) =>
@@ -138,41 +133,7 @@ const create = (baseURL = appConfig.API_URL) => {
   };
 
   // ====================== Claimant Profile ======================
-  const getMyProfile = () => api.get('/account-svc/v1/claimant/me', {}, newCancelToken());
-
-  const getMyProfileMock = () => {
-    const response = {
-      id: '115176d7-2d27-4ee3-9f43-47c4eeb02d1e',
-      createdAt: '2022-01-19T17:23:30.530Z',
-      updatedAt: '2022-01-19T17:23:30.530Z',
-      email: 'john_doe@gmail.com',
-      firstName: 'John',
-      lastName: 'Christopher',
-      middleName: 'Doe',
-      claimantUser: {
-        socialSecurityNumber: 783910003,
-        dateOfBirth: '1983-03-27',
-        phoneNumber: 12012987481,
-        mailingAddress: {
-          deliverTo: 'John Doe',
-          careOf: 'Edward Moore',
-          address: '1100 Manor Dr., Chalfont, PA 18914',
-          country: 'United States',
-          zipCode: 55000,
-          city: 'New York',
-          state: 'New York',
-        },
-        directDeposit: {
-          accountType: 'CHECKING',
-          routingNumber: 1236789043,
-          accountNumber: 'TPA423465235NH',
-        },
-      },
-    };
-    return new Promise((resolve) => {
-      setTimeout(() => resolve({ ok: true, data: response }), 600);
-    });
-  };
+  const getMyProfile = () => api.get('/account-svc/v1/me', {}, newCancelToken());
 
   const updateUserAvatar = (body: { avatarUrl: string }) =>
     api.patch(`/me/avatar`, body, newCancelToken());
@@ -275,7 +236,6 @@ const create = (baseURL = appConfig.API_URL) => {
 
     // ====================== Profile ======================
     getMyProfile,
-    getMyProfileMock,
     // updateMyProfile,
     updateUserAvatar,
     updateMyProfile,

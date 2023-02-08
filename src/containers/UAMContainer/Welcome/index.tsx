@@ -6,17 +6,10 @@ import { connect } from 'react-redux';
 import { PATHS } from 'src/appConfig/paths';
 import { Button, Form, Grid, Input, InputPassword, ValidatePassword } from 'src/components/common';
 import { useComponentWillUnmount } from 'src/hooks';
-import {
-  ChangePasswordPayload,
-  useChangePassword,
-  useLoginWithoutMFA,
-  useLogout,
-  useUpdateUserLastPasswordChanged,
-} from 'src/queries';
+import { ConfirmPasswordPayload, useConfirmPassword } from 'src/queries';
 import { setIsWelcomeScreen } from 'src/redux/auth/authSlice';
 import { hideDialog, showDialog } from 'src/redux/dialog/dialogSlice';
-import { DIALOG_TYPES } from 'src/redux/dialog/type';
-import { ErrorService, Navigator, Toastify } from 'src/services';
+import { Navigator, Toastify } from 'src/services';
 import { UAMBody } from '../common';
 import {
   initialWelcomeFormValue,
@@ -39,43 +32,11 @@ const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen, onShowDialog, 
       Navigator.navigate(PATHS.forgotPassword);
       handleShowToastPasswordExpired();
     } else {
-      setIsSigning(true);
-      login({ username, password: token });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useComponentWillUnmount(() => onSetWelcomeScreen(false));
-
-  const [isSigning, setIsSigning] = React.useState(false);
-
-  const { login } = useLoginWithoutMFA({
-    onSuccess(data, variables, context) {
-      setIsSigning(false);
-    },
-    onError(error, variables, context) {
-      if (error && error.message.includes('User is disabled')) {
-        onShowDialog({
-          type: DIALOG_TYPES.OK_DIALOG,
-          data: {
-            title: `Error`,
-            content: `Your account is deactivated. Please contact to your administrator to reactivate your account.`,
-            okText: 'Ok',
-            onOk: () => {
-              onHideDialog();
-            },
-            onCancel: () => {
-              onHideDialog();
-            },
-          },
-        });
-        Navigator.navigate(PATHS.signIn);
-      } else {
-        handleShowToastPasswordExpired();
-        Navigator.navigate(PATHS.forgotPassword, { username: username });
-      }
-    },
-  });
 
   const handleShowToastPasswordExpired = () => {
     Toastify.error(
@@ -84,32 +45,33 @@ const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen, onShowDialog, 
   };
 
   const [isPasswordUpdated, setIsPasswordUpdated] = React.useState(false);
-  const { updateUserLastPasswordChanged } = useUpdateUserLastPasswordChanged();
-  const { logout, isLoggingOut } = useLogout();
-  const { changePassword, isLoading } = useChangePassword({
+
+  const { confirmPassword, isLoading } = useConfirmPassword({
     onSuccess(data, variables, context) {
       setIsPasswordUpdated(true);
-      updateUserLastPasswordChanged({ username: username });
-      logout();
     },
     onError(error, variables, context) {
-      ErrorService.handler(error);
+      handleShowToastPasswordExpired();
+      setTimeout(() => {
+        Navigator.navigate(PATHS.forgotPassword, { username: username });
+      }, 2000);
     },
   });
 
   const handleWelcome = (values: WelcomeFormValue, helpers: FormikHelpers<WelcomeFormValue>) => {
-    const { password, confirmPassword } = values;
+    const { password, confirmPassword: _confirmPassword } = values;
 
     // eslint-disable-next-line security/detect-possible-timing-attacks
-    if (password !== confirmPassword) {
+    if (password !== _confirmPassword) {
       setErrors({ confirmPassword: 'Password and Confirm Password do not match.' }); // pragma: allowlist secret
       return;
     } else {
-      const body: ChangePasswordPayload = {
-        currentPassword: token,
+      const body: ConfirmPasswordPayload = {
+        username,
         newPassword: password,
+        token,
       };
-      return changePassword(body);
+      return confirmPassword(body);
     }
   };
 
@@ -152,7 +114,6 @@ const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen, onShowDialog, 
                   placeholder="New Password"
                   errorMessage={getErrorMessage(WELCOME_KEY.PASSWORD)}
                   {...getFieldProps(WELCOME_KEY.PASSWORD)}
-                  disabled={isSigning}
                 />
               </Grid.Item>
 
@@ -170,17 +131,10 @@ const Welcome: React.FC<Props> = ({ location, onSetWelcomeScreen, onShowDialog, 
                   placeholder="Confirm Password"
                   errorMessage={getErrorMessage(WELCOME_KEY.CONFIRM_PASSWORD)}
                   {...getFieldProps(WELCOME_KEY.CONFIRM_PASSWORD)}
-                  disabled={isSigning}
                 />
               </Grid.Item>
               <Grid.Item variant="is-full">
-                <Button
-                  type="submit"
-                  variant="default"
-                  className=""
-                  isFull
-                  isLoading={isLoading || isSigning || isLoggingOut}
-                >
+                <Button type="submit" variant="default" className="" isFull isLoading={isLoading}>
                   Confirm
                 </Button>
               </Grid.Item>
