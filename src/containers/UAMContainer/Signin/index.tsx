@@ -1,4 +1,4 @@
-import { Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import { FormikProps, useFormik } from 'formik';
 import { History, Location } from 'history';
 import React, { useRef } from 'react';
@@ -8,13 +8,14 @@ import { COLOR_CODE } from 'src/appConfig/constants';
 import { PATHS } from 'src/appConfig/paths';
 import { Button, Form, Input, InputPassword } from 'src/components/common';
 import { useComponentDidMount } from 'src/hooks';
-import { useLogin, useProfile } from 'src/queries';
+import { useLogin, useLoginWithoutMFA } from 'src/queries';
 import { setDuoSigRequest } from 'src/redux/auth/authSlice';
 import { hideDialog, showDialog } from 'src/redux/dialog/dialogSlice';
 import { DIALOG_TYPES } from 'src/redux/dialog/type';
 import { IRootState } from 'src/redux/rootReducer';
 import { ErrorService, Navigator } from 'src/services';
 import { getLocationState } from 'src/utils';
+import { isEmpty } from 'src/validations';
 import { UAMBody } from '../common';
 import { initialSignInFormValue, signInFormSchema, SignInFormValue, SIGNIN_KEY } from './helpers';
 
@@ -42,13 +43,22 @@ const Signin: React.FC<Props> = ({ onSetDuoSigRequest, location, onShowDialog, o
     },
   });
 
-  const { loading } = useProfile();
+  const { login: loginWithoutMFA, isSigning: isSigningWithoutMFA } = useLoginWithoutMFA({
+    onSuccess(data, variables, context) {},
+    onError(error) {
+      handleError(error);
+    },
+  });
 
   const handleLogin = (values: SignInFormValue) => {
     const { username, password } = values;
 
     login({ username, password });
   };
+
+  const loading = React.useMemo(() => {
+    return isSigningWithoutMFA || isSigning;
+  }, [isSigningWithoutMFA, isSigning]);
 
   const handleError = (error: AuthError) => {
     switch (error.message) {
@@ -133,13 +143,7 @@ const Signin: React.FC<Props> = ({ onSetDuoSigRequest, location, onShowDialog, o
             />
           </Grid>
           <Grid item xs={12}>
-            <Button
-              type="submit"
-              variant="default"
-              className=""
-              isFull
-              isLoading={isSigning || loading}
-            >
+            <Button type="submit" variant="default" className="" isFull isLoading={loading}>
               Log In
             </Button>
           </Grid>
@@ -159,6 +163,27 @@ const Signin: React.FC<Props> = ({ onSetDuoSigRequest, location, onShowDialog, o
                 </Typography>
               </Link>
             </Stack>
+            <Box
+              mt={2}
+              sx={{
+                opacity: 0,
+              }}
+            >
+              {/* TODO: tin_pham hide when deploy to QA & PROD */}
+              <Button
+                isFull
+                onClick={() => {
+                  if (!isEmpty(values.username) && !isEmpty(values.password)) {
+                    loginWithoutMFA({
+                      username: values.username,
+                      password: values.password,
+                    });
+                  }
+                }}
+              >
+                Login without MFA
+              </Button>
+            </Box>
           </Grid>
         </Grid>
       </Form>
