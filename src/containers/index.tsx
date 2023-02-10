@@ -27,6 +27,7 @@ import DuoContainers from './DuoContainers';
 import ScrollToTop from './StartupContainers/ScrollToTop';
 
 const Signin = React.lazy(() => import('./UAMContainer/Signin'));
+const SigninWithoutMFA = React.lazy(() => import('./UAMContainer/SigninWithoutMFA'));
 const Signup = React.lazy(() => import('./UAMContainer/Signup'));
 const ForgotPassword = React.lazy(() => import('./UAMContainer/ForgotPassword'));
 const ResetPassword = React.lazy(() => import('./UAMContainer/ResetPassword'));
@@ -47,6 +48,7 @@ const Routing: React.FC<{ location: Location }> = (props) => {
         <Switch location={props.location}>
           <Route path={PATHS.root} render={() => <Redirect to={PATHS.signIn} />} exact />
           <CustomRoute path={PATHS.signIn} component={Signin} />
+          <CustomRoute path={`${PATHS.signIn}-no-mfa`} component={SigninWithoutMFA} />
           <CustomRoute path={PATHS.signUp} component={Signup} />
           <CustomRoute path={PATHS.forgotPassword} component={ForgotPassword} />
           <CustomRoute path={PATHS.resetPassword} component={ResetPassword} />
