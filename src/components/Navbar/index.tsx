@@ -21,7 +21,7 @@ const Navbar: React.FC<Props> = () => {
       <Toolbar variant="regular">
         <Stack width={'100%'} flexDirection={'row'} justifyContent={'space-between'}>
           <Link to={PATHS.root}>
-            <Image src={IMAGES.logoFull} />
+            <Image src={IMAGES.logoFull} className={`${clsPrefix}-logo`} />
           </Link>
           <Stack flexDirection={'row'}>
             {navbarItems.map((item) => (
